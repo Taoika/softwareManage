@@ -1,5 +1,5 @@
-import Contents from '../pages/home/contents/index.jsx'
-import Home from '../pages/home/index.jsx'
+import Contents from '../pages/Home/Contents/index.jsx'
+import Home from '../pages/Home/index.jsx'
 import { Navigate} from 'react-router-dom'
 import Dlzc from '../pages/dlzc'
 import Namel from '../pages/namel'
@@ -10,12 +10,12 @@ import Softwaremsg from '../pages/softwaremsg'
 import Versionimf from '../pages/versionimf'
 import Licensing from '../pages/licensing'
 import Personalcen from '../pages/personalcen'
-import Mysoftware from '../pages/mysoftware'
+import Mysoftware from '../pages/MySoftware'
 import Myauthorization from '../pages/myauthorization'
 import Personalinf from '../pages/personalinf'
 import Fingerprint from '../pages/fingerprint'
-import '../pages/home/index.css'
-import MySoftware from '../pages/mysoftware/index.jsx'
+import '../pages/Home/index.css'
+import MySoftware from '../pages/MySoftware/index.jsx'
 import Repairpsw from '../pages/repairpsw/index.jsx'
 import Management from '../pages/management/index.jsx'
 import VersionInfo from '../pages/versioninfo/index.jsx'
@@ -149,7 +149,7 @@ const routes = [
         children: [
         {
             path:'addsoftware',
-            // element:<Softwaredetail/>
+            element:<Addsoftware/>
         },
         {
             path:'manageimf',
