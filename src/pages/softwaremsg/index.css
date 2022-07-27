@@ -1,0 +1,131 @@
+.Softwaremsg-card {
+    position: absolute;
+    width: 1000px;
+    height: 200px;
+    left: 120px;
+    top: 50px;
+    padding-left: 30px;
+    padding-top: 30px;
+
+
+    background: #FFFFFF;
+    /* 框 */
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Softwaremsg-name {
+    position: absolute;
+    width: 279px;
+    height: 44px;
+    left: 25%;
+    top: 20%;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 44px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.Softwaremsg-type {
+    position: absolute;
+    width: 64px;
+    height: 19px;
+    left: 282px;
+    top: 120px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+
+    /* 类型 */
+
+    color: #C4C4C4;
+}
+
+.Softwaremsg-size {
+    position: absolute;
+    width: 126px;
+    height: 24px;
+    left: 282px;
+    top: 160px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* 分类/未选中 */
+
+    color: #848484;
+}
+
+.Softwaremsg-version {
+
+    position: absolute;
+    width: 125px;
+    height: 24px;
+    left: 482px;
+    top: 160px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* 分类/未选中 */
+
+    color: #848484;
+}
+
+.Softwaremsg-download {
+    position: absolute;
+    top: 100px;
+    left: 800px;
+}
+
+.Softwaremsg-summary {
+    position: absolute;
+    width: 52px;
+    height: 31px;
+    left: 49px;
+    top: 309px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 31px;
+
+    /* 深灰色 */
+
+    color: #363636;
+}
+
+.Softwaremsg-content {
+    position: absolute;
+    width: 1133px;
+    height: 80px;
+    left: 19px;
+    top: 370px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 200.02%;
+    /* or 40px */
+
+
+    /* 分类/未选中 */
+
+    color: #848484;
+}
