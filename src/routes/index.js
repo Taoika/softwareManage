@@ -22,6 +22,7 @@ import VersionInfo from '../pages/versioninfo/index.jsx'
 import PermissionHome from '../pages/permissionhome'
 import PermissionContents from '../pages/permissionhome/permissioncontents'
 import Release from '../pages/release/index.jsx'
+import MVersionImf from '../pages/m-versionimf'
 const routes = [
     //登录注册
     {
@@ -148,8 +149,11 @@ const routes = [
         element:<Management/>,
         children: [
         {
-            path:'addsoftware',
+            path:'m-versionimf',
+            element:<MVersionImf/>
+            // path:'addsoftware',
             // element:<Softwaredetail/>
+
         },
         {
             path:'manageimf',
