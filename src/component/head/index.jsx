@@ -4,7 +4,6 @@ import { UserOutlined } from '@ant-design/icons';
 // import routes from './routes'
 import './index.css'
 import logo from './logo192.png'
-
 const { Header } = Layout;
 const items1 = [
     { key: 1, label: <Link to='/news'>消息</Link> },
@@ -17,10 +16,6 @@ const items1 = [
     // { key: 2, label: <Link to='/white'>购买授权</Link> },
     // { key: 3, label: <Link to='/mysoftware'><UserOutlined style={{ fontSize: '20px' }} /></Link> }
 
-//     { key: 1, label: <Link to='/release'>产品</Link> },
-//     { key: 2, label: <Link to='/white'>购买授权</Link> },
-//     { key: 3, label: <Link to='/mysoftware'><UserOutlined style={{ fontSize: '20px' }} /></Link> }
-// >>>>>>> kkt
 ];
 
 export default function Head() {
