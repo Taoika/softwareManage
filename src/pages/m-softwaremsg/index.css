@@ -1,0 +1,29 @@
+.SoftwareM-image {
+    position: absolute;
+    left: 120px;
+    top: 30px;
+}
+
+.SoftwareM-name {
+    position: absolute;
+    left: 500px;
+    top: 100px;
+}
+
+.SoftwareM-type {
+    position: absolute;
+    left: 495px;
+    top: 150px;
+}
+
+.SoftwareM-desc {
+    position: absolute;
+    left: -430px;
+    top: 350px;
+}
+
+.SoftwareM-submit {
+    position: absolute;
+    left: 380px;
+    top: 530px;
+}

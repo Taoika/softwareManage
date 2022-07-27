@@ -13,18 +13,18 @@ import React from 'react'; function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem(<Link to='addsoftware'>发布软件</Link>, 'sub1', <MailOutlined />),
-    getItem(<Link to='manageimf'>管理信息</Link>, 'sub2', <AppstoreOutlined />),
-    getItem(<Link to='authorizationmethod'>授权方案</Link>, 'sub4', <SettingOutlined />)
+    getItem(<Link to='softwaremsg-m'>软件简介</Link>, 'sub1', <MailOutlined />),
+    getItem(<Link to='versionimf-m'>版本信息</Link>, 'sub2', <AppstoreOutlined />),
+    getItem(<Link to='authorization-m'>授权许可</Link>, 'sub4', <SettingOutlined />)
 ];
 
-const Management = () => {
+const Repairsoftware = () => {
     const onClick = (e) => {
         console.log('click ', e);
     };
 
     return (
-        <div><div className='Management'>
+        <div><div className='Repairsoftware'>
             <Menu
                 onClick={onClick}
                 style={{
@@ -36,11 +36,11 @@ const Management = () => {
                 items={items}
             />
         </div>
-            <div className='Management-main'><Outlet /></div>
+            <div className='Repairsoftware-main'><Outlet /></div>
 
         </div>
 
     );
 };
 
-export default Management;
+export default Repairsoftware;

@@ -1,8 +1,10 @@
+import {useNavigate} from 'react-router-dom'
 import img1 from './images/删除.png'
 import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 const EditableContext = React.createContext(null);
+
 
 
 const EditableRow = ({ index, ...props }) => {
@@ -18,6 +20,13 @@ const EditableRow = ({ index, ...props }) => {
 
 
 const MVersionImf = () => {
+    const navigate = useNavigate();
+    const pushnewversion=()=>{
+        navigate('/repairsoftware/pushnewversion')
+    }
+    const repairversion=()=>{
+        navigate('/repairsoftware/repairversion')
+    }
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
@@ -55,7 +64,8 @@ const MVersionImf = () => {
     {
       title: <div>
                 <br/>
-                <Button type="primary" style={{marginBottom: 16,}}>+发布新版本</Button>
+                {/* 发布新版本 */}
+                <Button onClick={pushnewversion} type="primary" style={{marginBottom: 16,}}>+发布新版本</Button>
             </div>,
       dataIndex: 'add',
       width: 250,
@@ -63,7 +73,8 @@ const MVersionImf = () => {
       render: (_, record) =>
         dataSource.length >= 1 ? (
             <div>
-                <a><img src={img2} alt="edit" width='20px'/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {/* 编辑 */}
+                <a onClick={()=>repairversion()}><img src={img2} alt="edit" width='20px'/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <Popconfirm title="确认删除吗？" onConfirm={() => handleDelete(record.key)}>
                     <a><img src={img1} alt="delete" width='20px'/></a>
                 </Popconfirm>

@@ -23,6 +23,13 @@ import PermissionHome from '../pages/permissionhome'
 import PermissionContents from '../pages/permissionhome/permissioncontents'
 import Release from '../pages/release/index.jsx'
 import MVersionImf from '../pages/m-versionimf'
+import Addsoftware from '../pages/addsoftware/index.jsx'
+import Repairsoftware from '../pages/repairsoftware'
+import SoftwaremsgM from '../pages/m-softwaremsg'
+import VersionimfM from '../pages/m-versionimf'
+import AuthorizationM from '../pages/m-authorization'
+import Repairversion from '../pages/repairversion'
+import Pushnewversion from '../pages/pushnewversion'
 const routes = [
     //登录注册
     {
@@ -58,7 +65,7 @@ const routes = [
             },
             {
                 path: 'versionimf',
-                element:<VersionInfo/>
+                element:<Versionimf/>
             },
             {
                 path: 'licensing',
@@ -101,7 +108,7 @@ const routes = [
             }
          ]
     },
-    //默认
+    //Home
     {
         // 主页子导航栏内容
         path:'home',
@@ -143,29 +150,58 @@ const routes = [
         path:'/softwaredetail',
         element:<Softwaredetail/>
     },
+    //管理软件
+    {
+        path:'/repairsoftware',
+        element:<Repairsoftware/>,
+        children: [
+            {
+                path:'softwaremsg-m',
+                element:<SoftwaremsgM/>
+            },
+            {
+                path:'versionimf-m',
+                element:<VersionimfM/>
+            },
+            {
+                path:'authorization-m',
+                element:<AuthorizationM/>
+            },
+            {
+                path:'repairversion',
+                element:<Repairversion/>
+            },
+            {
+                path:'pushnewversion',
+                element:<Pushnewversion/>
+            },
+            {
+                path: '',
+                element: <Navigate to='softwaremsg-m' />
+            }
+        ]
+    },
     //管理端
     {
         path:'/management',
         element:<Management/>,
         children: [
         {
-            path:'m-versionimf',
-            element:<MVersionImf/>
-            // path:'addsoftware',
-            // element:<Softwaredetail/>
-
+            path:'addsoftware',
+            element:<Addsoftware/>
         },
         {
             path:'manageimf',
             element:<PermissionHome/>,
-            children: [{
-                path:'permissioncontents',
-                element:<PermissionContents/>
-            },
-            {
-                path: '',
-                element: <Navigate to='permissioncontents' />
-            }
+            children: [
+                {
+                    path:'permissioncontents',
+                    element:<PermissionContents/>
+                },
+                {
+                    path: '',
+                    element: <Navigate to='permissioncontents' />
+                }
             ]
         },
         {
@@ -173,32 +209,13 @@ const routes = [
             // element:<Softwaredetail/>
         }
     ]
-} 
+    },
+    //默认
+    {
+        path: '',
+        element: <Navigate to='/home/contents' />
+    }
 ]
-//     {
-//         path:'/versioninfo',
-//         element:<VersionInfo/>
-//     },
-//     {
-//         path:'permissionHome',
-//         element:<PermissionHome/>,
-//         children:[
-//             {
-//                 path:'permissioncontents',
-//                 element:<PermissionContents/>
-//             },
-//             {
-//                 path:'',
-//                 element:<PermissionContents/>
-//             }
-//         ]
-//     },
-//     {
-//         path:'release',
-//         element:<Release/>
-// >>>>>>> kkt
-//     }
-// ]
 
 
 export default routes
