@@ -149,7 +149,7 @@ const routes = [
         children: [
         {
             path:'addsoftware',
-            element:<Addsoftware/>
+            // element:<Addsoftware/>
         },
         {
             path:'manageimf',
