@@ -46,13 +46,13 @@
 
 .Addsoftware-type {
     position: absolute;
-    left: 550px;
+    left: 480px;
     top: 30px;
 }
 
 .Addsoftware-desc {
     position: absolute;
-    left: -350px;
+    left: -134px;
     top: 100px;
 }
 
@@ -64,7 +64,7 @@
 
 .Addsoftware-versionInf {
     position: absolute;
-    left: 550px;
+    left: 450px;
     top: 300px;
 }
 
@@ -76,6 +76,12 @@
 
 .Addsoftware-upload {
     position: absolute;
-    left: 820px;
-    top: 30px;
+    left: 890px;
+    top: 301px;
+}
+
+.Addsoftware-uploadpic {
+    position: absolute;
+    left: 850px;
+    top: 101px;
 }

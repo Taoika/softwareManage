@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
 // import routes from './routes'
 import './index.css'
-import logo from './logo192.png'
+import logo from '../logo3.png'
 const { Header } = Layout;
 const items1 = [
     { key: 1, label: <Link to='/news'>消息</Link> },
@@ -27,8 +27,8 @@ export default function Head() {
         <Layout>
             <Header className="header">
                 <div onClick={backHome} className="logo"><img src={logo} alt="hehe" /></div>
-                <div className="TopNav_Name">软件管理平台</div>
-                <Menu theme="dark" mode="horizontal" items={items1} />
+                <div className="TopNav_Name"></div>
+                <Menu style={{ background: '#3D6DB5' }} theme="dark" mode="horizontal" items={items1} />
             </Header>
         </Layout>
     )

@@ -39,13 +39,14 @@ export default function Register() {
       response => {
         const { data } = response;
         if (data.code === 60101) {
+          console.log(response);
           alert('注册成功！');
           back();
         }
         else {
           alert(data.msg);
         }
-        console.log(response);
+
       },
     )
     console.log('Received values of form: ', values);

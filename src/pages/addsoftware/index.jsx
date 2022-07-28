@@ -1,10 +1,10 @@
-import React from 'react'
-import { Button, Form, Input, Select, Upload } from 'antd';
+import React, { useState } from 'react'
+import { Button, Form, Input, Select, Upload, message } from 'antd';
 import './index.css'
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, LoadingOutlined, PlusOutlined, } from '@ant-design/icons';
+import axios from "axios";
 
-
-
+//定位
 const layout = {
     labelCol: {
         span: 8,
@@ -14,7 +14,7 @@ const layout = {
     },
 };
 /* eslint-disable no-template-curly-in-string */
-
+//提示信息
 const validateMessages = {
     required: '${label} is required!',
     types: {
@@ -25,6 +25,7 @@ const validateMessages = {
         range: '${label} must be between ${min} and ${max}',
     },
 };
+//上传安装包
 const normFile = (e) => {
     console.log('Upload event:', e);
 
@@ -34,9 +35,99 @@ const normFile = (e) => {
 
     return e?.fileList;
 };
+//上传图片
+const getBase64 = (img, callback) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+};
+
+const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+
+    if (!isJpgOrPng) {
+        message.error('You can only upload JPG/PNG file!');
+    }
+
+    const isLt2M = file.size / 1024 / 1024 < 2;
+
+    if (!isLt2M) {
+        message.error('Image must smaller than 2MB!');
+    }
+
+    return isJpgOrPng && isLt2M;
+};
 export default function Addsoftware() {
+    //上海图片
+    const [loading, setLoading] = useState(false);
+    const [imageUrl, setImageUrl] = useState();
+    const handleChange = (info) => {
+        if (info.file.status === 'uploading') {
+            setLoading(true);
+            return;
+        }
+
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, (url) => {
+                setLoading(false);
+                setImageUrl(url);
+            });
+        }
+    };
+
+    const uploadButton = (
+        <div>
+            {loading ? <LoadingOutlined /> : <PlusOutlined />}
+            <div
+                style={{
+                    marginTop: 8,
+                }}
+            >
+                上传图片
+            </div>
+        </div>
+    );
+
+    //上传图片
     const onFinish = (values) => {
-        console.log(values);
+        const { software_name, desc, group_id, versionInf, version_desc } = values
+        axios({
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            url: 'http://106.13.18.48/softwares',
+            data: JSON.stringify({
+                software: {
+                    software_name,
+                    desc,
+                    group_id: 1
+                },
+                version: {
+                    versionInf,
+                    desc: version_desc
+                }
+
+            })
+        }).then(
+
+            response => {
+                if (response.data.code === 70101) {
+                    alert('发布成功！');
+                }
+                else {
+                    alert(response.data.msg);
+                }
+                console.log(response);
+            },
+            error => {
+                alert('异常错误！');
+            }
+
+
+        )
+        // console.log('Received values of form: ', values);
     };
     return (
         <div>
@@ -106,7 +197,7 @@ export default function Addsoftware() {
                             },
                         ]}
                     >
-                        <Input.TextArea style={{ width: '1400px', height: '150px' }} />
+                        <Input.TextArea style={{ width: '857px', height: '150px' }} />
                     </Form.Item>
                     {/* 软件类别 */}
                     <Form.Item className='Addsoftware-type' label="软件种类" name='group_id'
@@ -145,6 +236,11 @@ export default function Addsoftware() {
                     </Form.Item>
                     {/* 安装包 */}
                     <Form.Item
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
                         className='Addsoftware-upload'
                         name="upload"
                         label="安装包"
@@ -154,6 +250,42 @@ export default function Addsoftware() {
                             <Button icon={<UploadOutlined />}>Click to upload</Button>
                         </Upload>
                     </Form.Item>
+                    {/* 图片 */}
+                    <Form.Item
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                        className='Addsoftware-uploadpic'
+                        name="pic"
+                        label=""
+                        valuePropName="fileList"
+                        getValueFromEvent={normFile}                    >
+                        <Upload
+                            name="avatar"
+                            listType="picture-card"
+                            className="avatar-uploader"
+                            showUploadList={false}
+                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            beforeUpload={beforeUpload}
+                            onChange={handleChange}
+                        >
+                            {imageUrl ? (
+                                <img
+                                    src={imageUrl}
+                                    alt="avatar"
+                                    style={{
+                                        width: '100%',
+
+                                    }}
+                                />
+                            ) : (
+                                uploadButton
+                            )}
+                        </Upload>
+                    </Form.Item>
+
                 </Form>
 
             </div>

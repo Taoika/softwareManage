@@ -20,7 +20,7 @@ const Namel = () => {
             response => {
                 const { data } = response;
                 if (data.code === 60001) {
-                    alert('注册成功！');
+                    alert('登录成功！');
                     console.log(response);
                 }
                 else {

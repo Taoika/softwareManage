@@ -1,10 +1,14 @@
-header .logo {
+.header .logo {
     float: left;
-    width: 30px;
-    height: 31px;
+    width: 210px;
+    height: 51px;
     /* margin: 16px 24px 16px 0; */
-    margin-right: 40px;
+    margin-right: 840px;
     /* background: rgba(255, 255, 255, 0.3); */
+}
+
+.header {
+    background: #3D6DB5;
 }
 
 header .logo:hover {

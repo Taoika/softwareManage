@@ -1,0 +1,10 @@
+.versionInfo {
+    width: 1430px;
+    padding: 20px 40px 0 40px;
+    background-color: rgba(0, 0, 0, .08);
+}
+
+.versionInfo-softwareName {
+    font-size: 30px;
+    margin-bottom: 20px;
+}

@@ -7,7 +7,6 @@ import Emaill from '../pages/emaill'
 import Register from '../pages/register'
 import Softwaredetail from '../pages/softwaredetail'
 import Softwaremsg from '../pages/softwaremsg'
-import Versionimf from '../pages/versionimf'
 import Licensing from '../pages/licensing'
 import Personalcen from '../pages/personalcen'
 import Mysoftware from '../pages/mysoftware'
@@ -21,8 +20,6 @@ import Management from '../pages/management/index.jsx'
 import VersionInfo from '../pages/versioninfo/index.jsx'
 import PermissionHome from '../pages/permissionhome'
 import PermissionContents from '../pages/permissionhome/permissioncontents'
-import Release from '../pages/release/index.jsx'
-import MVersionImf from '../pages/m-versionimf'
 import Addsoftware from '../pages/addsoftware/index.jsx'
 import Repairsoftware from '../pages/repairsoftware'
 import SoftwaremsgM from '../pages/m-softwaremsg'
@@ -64,8 +61,8 @@ const routes = [
                 element:<Softwaremsg/>
             },
             {
-                path: 'versionimf',
-                element:<Versionimf/>
+                path: 'versioninfo',
+                element:<VersionInfo/>
             },
             {
                 path: 'licensing',
@@ -207,6 +204,10 @@ const routes = [
         {
             path:'authorizationmethod',
             // element:<Softwaredetail/>
+        },
+        {
+            path: '',
+            element: <Navigate to='/management/addsoftware' />
         }
     ]
     },

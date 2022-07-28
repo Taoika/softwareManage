@@ -1,5 +1,5 @@
 import './index.css'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { FileSearchOutlined, QrcodeOutlined, KeyOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import React from 'react'; function getItem(label, key, icon, children, type) {
@@ -13,9 +13,9 @@ import React from 'react'; function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem(<Link to='softwaremsg'>软件简介</Link>, 'sub1', <MailOutlined />),
-    getItem(<Link to='versionimf'>版本信息</Link>, 'sub2', <AppstoreOutlined />),
-    getItem(<Link to='licensing'>授权许可</Link>, 'sub4', <SettingOutlined />)
+    getItem(<Link to='softwaremsg'>软件简介</Link>, 'sub1', <FileSearchOutlined />),
+    getItem(<Link to='versioninfo'>版本信息</Link>, 'sub2', <QrcodeOutlined />),
+    getItem(<Link to='licensing'>授权许可</Link>, 'sub4', <KeyOutlined />)
 ];
 
 const Softwaredetail = () => {
