@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Form, Input, Select, Image } from 'antd';
 import './index.css'
-
+import { useLocation } from 'react-router-dom';
+import axios from 'axios'
 const layout = {
   labelCol: {
     span: 8,
@@ -23,8 +24,29 @@ const validateMessages = {
   },
 };
 export default function SoftwareM() {
+  const state = useLocation().state;
+  const { software_id } = state;
   const onFinish = (values) => {
-    console.log(values);
+    const { software_name, desc, group_id } = values;
+    axios({
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      url: 'http://106.13.18.48/softwares',
+      data: JSON.stringify({ software_id, software_name, desc, group_id })
+    }).then(
+      response => {
+        if (response.data.code === 70201) {
+          alert('修改软件成功!')
+        }
+        else {
+          alert(response.data.msg)
+        }
+        console.log(response);
+      }
+    )
+    // console.log(values, software_id);
   };
   return (
     <div>
@@ -52,7 +74,7 @@ export default function SoftwareM() {
             },
           ]}
         >
-          <Input style={{ width: '300px' }} />
+          <Input placeholder={state.name} style={{ width: '300px' }} />
         </Form.Item>
         {/* 软件类别 */}
         <Form.Item className='SoftwareM-type' label="软件种类" name='group_id'
@@ -63,10 +85,10 @@ export default function SoftwareM() {
           ]}
         >
           <Select style={{ width: '300px' }}>
-            <Select.Option key='Demo1' value="demo">Demo1</Select.Option>
-            <Select.Option key='Demo2' value="demo">Demo2</Select.Option>
-            <Select.Option key='Demo3' value="demo">Demo3</Select.Option>
-            <Select.Option key='Demo4' value="demo">Demo4</Select.Option>
+            <Select.Option key='Demo1' value={1}>信息管理</Select.Option>
+            <Select.Option key='Demo2' value={2}>研发设计</Select.Option>
+            <Select.Option key='Demo3' value={3}>生产控制</Select.Option>
+            <Select.Option key='Demo4' value={4}>嵌入式软件</Select.Option>
           </Select>
         </Form.Item>
         {/* 简介 */}
@@ -81,7 +103,7 @@ export default function SoftwareM() {
             },
           ]}
         >
-          <Input.TextArea style={{ width: '1400px', height: '150px' }} />
+          <Input.TextArea placeholder={state.desc} style={{ width: '1400px', height: '150px' }} />
         </Form.Item>
         {/* 提交 */}
         <Form.Item className='SoftwareM-submit' wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

@@ -102,7 +102,7 @@ export default function Addsoftware() {
                 software: {
                     software_name,
                     desc,
-                    group_id: 1
+                    group_id
                 },
                 version: {
                     versionInf,
@@ -208,10 +208,10 @@ export default function Addsoftware() {
                         ]}
                     >
                         <Select style={{ width: '200px' }}>
-                            <Select.Option key='Demo1' value="demo">Demo1</Select.Option>
-                            <Select.Option key='Demo2' value="demo">Demo2</Select.Option>
-                            <Select.Option key='Demo3' value="demo">Demo3</Select.Option>
-                            <Select.Option key='Demo4' value="demo">Demo4</Select.Option>
+                            <Select.Option key='Demo1' value={1}>信息管理</Select.Option>
+                            <Select.Option key='Demo2' value={2}>研发设计</Select.Option>
+                            <Select.Option key='Demo3' value={3}>生产控制</Select.Option>
+                            <Select.Option key='Demo4' value={4}>嵌入式软件</Select.Option>
                         </Select>
                     </Form.Item>
                     {/* 版本描述 */}

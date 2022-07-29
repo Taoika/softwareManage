@@ -91,6 +91,8 @@ body {
 /* 内容栏头部 */
 .mySoftware-content-head {
     margin-top: 20px;
+    margin-left: 20px;
+
     margin-bottom: 5px;
     font-size: 30px;
     color: #000000;
@@ -102,7 +104,9 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-top: 25px;
+    padding-top: 20px;
+    margin-left: 20px;
+
 }
 
 .mySoftware-content-body .mySoftware-info {

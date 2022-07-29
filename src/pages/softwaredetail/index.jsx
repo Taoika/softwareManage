@@ -1,7 +1,7 @@
 import './index.css'
 import { FileSearchOutlined, QrcodeOutlined, KeyOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import React from 'react'; function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -12,21 +12,29 @@ import React from 'react'; function getItem(label, key, icon, children, type) {
     };
 }
 
-const items = [
-    getItem(<Link to='softwaremsg'>软件简介</Link>, 'sub1', <FileSearchOutlined />),
-    getItem(<Link to='versioninfo'>版本信息</Link>, 'sub2', <QrcodeOutlined />),
-    getItem(<Link to='licensing'>授权许可</Link>, 'sub4', <KeyOutlined />)
-];
+
 
 const Softwaredetail = () => {
-    const onClick = (e) => {
-        console.log('click ', e);
-    };
+
+    const [msg, setMsg] = React.useState()
+    const location = useLocation();
+    const items = [
+        getItem(<Link to='softwaremsg' state={msg}>软件简介</Link>, 'sub1', <FileSearchOutlined />),
+        getItem(<Link to='versioninfo' state={{}}>版本信息</Link>, 'sub2', <QrcodeOutlined />),
+        getItem(<Link to='licensing' state={{}}>授权许可</Link>, 'sub4', <KeyOutlined />)
+    ];
+    React.useEffect(() => {
+        const name = location.state.element && location.state.element.software_name;
+        const desc = location.state.element && location.state.element.desc;
+        const type = location.state.element && location.state.element.group_id;
+        setMsg({ name, desc, type })
+    }, [])
+
+
 
     return (
         <div><div className='Softwaredetail'>
             <Menu
-                onClick={onClick}
                 style={{
                     width: 256,
                 }}
@@ -37,7 +45,6 @@ const Softwaredetail = () => {
             />
         </div>
             <div className='Softwaredetail-main'><Outlet /></div>
-
         </div>
 
     );

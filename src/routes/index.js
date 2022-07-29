@@ -1,4 +1,3 @@
-import Contents from '../pages/home/contents/index.jsx'
 import Home from '../pages/home/index.jsx'
 import { Navigate} from 'react-router-dom'
 import Dlzc from '../pages/dlzc'
@@ -13,13 +12,11 @@ import Mysoftware from '../pages/mysoftware'
 import Myauthorization from '../pages/myauthorization'
 import Personalinf from '../pages/personalinf'
 import Fingerprint from '../pages/fingerprint'
-import '../pages/home/index.css'
 import MySoftware from '../pages/mysoftware/index.jsx'
 import Repairpsw from '../pages/repairpsw/index.jsx'
 import Management from '../pages/management/index.jsx'
 import VersionInfo from '../pages/versioninfo/index.jsx'
 import PermissionHome from '../pages/permissionhome'
-import PermissionContents from '../pages/permissionhome/permissioncontents'
 import Addsoftware from '../pages/addsoftware/index.jsx'
 import Repairsoftware from '../pages/repairsoftware'
 import SoftwaremsgM from '../pages/m-softwaremsg'
@@ -27,6 +24,21 @@ import VersionimfM from '../pages/m-versionimf'
 import AuthorizationM from '../pages/m-authorization'
 import Repairversion from '../pages/repairversion'
 import Pushnewversion from '../pages/pushnewversion'
+import Finger from '../pages/finger'
+import Addfinger from '../pages/addfinger'
+import All from '../pages/home/contents/all'
+import InfoMange from '../pages/home/contents/infoMange'
+import RdDesign from '../pages/home/contents/rdDesign'
+import ProductControl from '../pages/home/contents/productControl'
+import Firmware from '../pages/home/contents/firmware'
+import Search from '../pages/home/contents/search'
+import MInfoMange from '../pages/permissionhome/contents/infoMange'
+import MRdDesign from '../pages/permissionhome/contents/rdDesign'
+import MProductControl from '../pages/permissionhome/contents/productControl'
+import MFirmware from '../pages/permissionhome/contents/firmware'
+import MSearch from '../pages/permissionhome/contents/search'
+import MAll from '../pages/permissionhome/contents/all'
+
 const routes = [
     //登录注册
     {
@@ -68,10 +80,6 @@ const routes = [
                 path: 'licensing',
                 element:<Licensing/>
             },
-            {
-                path: '',
-                element: <Navigate to='softwaremsg' />
-            }
          ]
     },
     //个人信息
@@ -100,6 +108,14 @@ const routes = [
                 element:<Repairpsw/>
             },
             {
+                path: 'addfinger',
+                element:<Addfinger/>
+            },
+            {
+                path: 'finger',
+                element:<Finger/>
+            },
+            {
                 path: '',
                 element: <Navigate to='mysoftware' />
             }
@@ -112,28 +128,32 @@ const routes = [
         element:<Home/>,
         children:[
             {
-                path:'contents',
-                element:<Contents/>
+                path:'all',
+                element:<All/>
             },
-            // {
-            //     path:'infoMange',
-            //     element:<InfoMange/>
-            // },
-            // {
-            //     path:'rdDesign',
-            //     element:<RdDesign/>
-            // },
-            // {
-            //     path:'productControl',
-            //     element:<ProductControl/>
-            // },
-            // {
-            //     path:'firmware',
-            //     element:<Firmware/>
-            // }
+            {
+                path:'infoMange',
+                element:<InfoMange/>
+            },
+            {
+                path:'rdDesign',
+                element:<RdDesign/>
+            },
+            {
+                path:'productControl',
+                element:<ProductControl/>
+            },
+            {
+                path:'firmware',
+                element:<Firmware/>
+            },
+            {
+                path:'search',
+                element:<Search/>
+            },
             {
                 path: '',
-                element: <Navigate to='contents' />
+                element: <Navigate to='all' />
             }
         ]
     },
@@ -141,11 +161,6 @@ const routes = [
     {
         path:'/mysoftware',
         element:<MySoftware/>,
-    },
-    //软件详情
-    {
-        path:'/softwaredetail',
-        element:<Softwaredetail/>
     },
     //管理软件
     {
@@ -172,10 +187,6 @@ const routes = [
                 path:'pushnewversion',
                 element:<Pushnewversion/>
             },
-            {
-                path: '',
-                element: <Navigate to='softwaremsg-m' />
-            }
         ]
     },
     //管理端
@@ -192,12 +203,32 @@ const routes = [
             element:<PermissionHome/>,
             children: [
                 {
-                    path:'permissioncontents',
-                    element:<PermissionContents/>
+                    path:'all',
+                    element:<MAll/>
+                },
+                {
+                    path:'infoMange',
+                    element:<MInfoMange/>
+                },
+                {
+                    path:'rdDesign',
+                    element:<MRdDesign/>
+                },
+                {
+                    path:'productControl',
+                    element:<MProductControl/>
+                },
+                {
+                    path:'firmware',
+                    element:<MFirmware/>
+                },
+                {
+                    path:'search',
+                    element:<MSearch/>
                 },
                 {
                     path: '',
-                    element: <Navigate to='permissioncontents' />
+                    element: <Navigate to='all' />
                 }
             ]
         },
@@ -213,8 +244,8 @@ const routes = [
     },
     //默认
     {
-        path: '',
-        element: <Navigate to='/home/contents' />
+        path: '/',
+        element: <Navigate to='/home/all' />
     }
 ]
 

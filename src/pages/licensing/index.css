@@ -1,0 +1,127 @@
+.Licensing {
+    position: relative;
+    width: 1200px;
+    height: 600px;
+    margin-left: 50px;
+    margin-top: 80px;
+    /* 背景 */
+
+    background: #FFFFFF;
+}
+
+.Licensing-title {
+    position: absolute;
+    top: -55px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.Licensing-name {
+    position: absolute;
+    width: 396px;
+    height: 29px;
+    left: 117px;
+    top: 57px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    /* 中灰色 */
+
+    color: #606060;
+}
+
+.Licensing-version {
+    position: absolute;
+    width: 296px;
+    height: 29px;
+    left: 601px;
+    top: 57px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    /* 中灰色 */
+
+    color: #606060;
+
+}
+
+.Licensing-time {
+    position: absolute;
+    width: 334px;
+    left: 66px;
+    top: 150px;
+}
+
+.Licensing-function {
+    position: absolute;
+    width: 334px;
+    left: 541px;
+    top: 150px;
+}
+
+.Licensing-number {
+    position: absolute;
+    width: 300px;
+    left: 90px;
+    top: 250px;
+}
+
+.Licensing-submit {
+    position: absolute;
+    width: 300px;
+    left: 500px;
+    top: 508px;
+}
+
+.Licensing-price {
+    position: absolute;
+    width: 300px;
+    left: 137px;
+    top: 333px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    /* 中灰色 */
+
+    color: #606060;
+}
+
+.Licensing-yuan {
+    display: inline-block;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+    /* identical to box height */
+
+
+    color: #FF7A00;
+}
