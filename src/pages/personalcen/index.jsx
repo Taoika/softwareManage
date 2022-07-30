@@ -16,8 +16,8 @@ const items = [
     getItem(<Link to='mysoftware'>我的软件</Link>, 'sub1', <DownloadOutlined />),
     getItem(<Link to='myauthorization'>我的授权</Link>, 'sub2', <KeyOutlined />),
     getItem('账户信息', 'sub4', <ContainerOutlined />, [
-        getItem(<Link to='personalinf'>个人信息</Link>, 'personalinf'),
-        getItem(<Link to='fingerprint'>指纹管理</Link>, 'fingerprint'),
+        getItem(<Link className='personalcen-userlInfo' to='personalinf'>个人信息</Link>, 'personalinf'),
+        getItem(<Link className='personalcen-userlInfo' to='fingerprint'>指纹管理</Link>, 'fingerprint'),
     ]),
 ];
 

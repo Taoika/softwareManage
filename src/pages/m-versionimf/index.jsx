@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import img1 from './images/删除.png'
 import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
@@ -20,22 +20,24 @@ const EditableRow = ({ index, ...props }) => {
 
 
 const MVersionImf = () => {
-    const navigate = useNavigate();
-    const pushnewversion=()=>{
-        navigate('/repairsoftware/pushnewversion')
-    }
-    const repairversion=()=>{
-        navigate('/repairsoftware/repairversion')
-    }
+  const navigate = useNavigate();
+  const pushnewversion = () => {
+    navigate('/repairsoftware/pushnewversion')
+  }
+  const repairversion = () => {
+    navigate('/repairsoftware/repairversion')
+  }
   const [dataSource, setDataSource] = useState([
     {
       key: '0',
       versionInf: '111111',
+      msg: '阿库娅阿库娅阿库娅阿库娅阿库娅',
       desc: '1111111sgrnsetntffffffffsss1111111sgrnsetntffffffffs及地方很',
     },
     {
       key: '1',
       versionInf: '22222',
+      msg: '哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷',
       desc: '1111111sgrnsetntOEhhiperf',
     },
   ]);
@@ -51,34 +53,42 @@ const MVersionImf = () => {
       dataIndex: 'versionInf',
       width: 300,
       editable: true,
-      align:'center',
+      align: 'center',
+    },
+    {
+      title: '版本信息',
+      dataIndex: 'msg',
+      width: 600,
+      textWrap: 'word-break',
+      //   ellipsis: true,
+      align: 'center',
     },
     {
       title: '版本描述',
       dataIndex: 'desc',
       width: 600,
       textWrap: 'word-break',
-    //   ellipsis: true,
-      align:'center',
+      //   ellipsis: true,
+      align: 'center',
     },
     {
       title: <div>
-                <br/>
-                {/* 发布新版本 */}
-                <Button onClick={pushnewversion} type="primary" style={{marginBottom: 16,}}>+发布新版本</Button>
-            </div>,
+        <br />
+        {/* 发布新版本 */}
+        <Button onClick={pushnewversion} type="primary" style={{ marginBottom: 16, }}>+发布新版本</Button>
+      </div>,
       dataIndex: 'add',
       width: 250,
-      align:'center',
+      align: 'center',
       render: (_, record) =>
         dataSource.length >= 1 ? (
-            <div>
-                {/* 编辑 */}
-                <a onClick={()=>repairversion()}><img src={img2} alt="edit" width='20px'/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Popconfirm title="确认删除吗？" onConfirm={() => handleDelete(record.key)}>
-                    <a><img src={img1} alt="delete" width='20px'/></a>
-                </Popconfirm>
-            </div>    
+          <div>
+            {/* 编辑 */}
+            <a onClick={() => repairversion()}><img src={img2} alt="edit" width='20px' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Popconfirm title="确认删除吗？" onConfirm={() => handleDelete(record.key)}>
+              <a><img src={img1} alt="delete" width='20px' /></a>
+            </Popconfirm>
+          </div>
         ) : null,
     },
   ];

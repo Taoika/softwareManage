@@ -38,7 +38,11 @@ import MProductControl from '../pages/permissionhome/contents/productControl'
 import MFirmware from '../pages/permissionhome/contents/firmware'
 import MSearch from '../pages/permissionhome/contents/search'
 import MAll from '../pages/permissionhome/contents/all'
-
+import Xuke from '../pages/xuke'
+import Addshouquan from '../pages/addshouquan'
+import Pushnewfangan from '../pages/pushnewfangan'
+import Repairfangan from '../pages/repairfangan'
+import News from '../pages/news'
 const routes = [
     //登录注册
     {
@@ -62,6 +66,11 @@ const routes = [
                 element: <Navigate to='namel' />
             }
         ]
+    },
+     //消息
+     {
+        path: '/news',
+        element: <News />,
     },
     //软件详情
     {
@@ -110,6 +119,19 @@ const routes = [
             {
                 path: 'addfinger',
                 element:<Addfinger/>
+            },
+            {
+                path: 'finger',
+                element:<Finger/>
+            },
+            {
+                path: 'xuke',
+                element:<Xuke/>,
+                children:[{
+                    path: 'addshouquan',
+                    element:<Addshouquan/>
+                },
+            ]
             },
             {
                 path: 'finger',
@@ -177,7 +199,16 @@ const routes = [
             },
             {
                 path:'authorization-m',
-                element:<AuthorizationM/>
+                element:<AuthorizationM/>,
+                children: [{
+                    path:'pushnewfangan',
+                    element:<Pushnewfangan/>
+                },
+                {
+                    path:'repairfangan',
+                    element:<Repairfangan/>
+                }
+            ]
             },
             {
                 path:'repairversion',
@@ -231,10 +262,6 @@ const routes = [
                     element: <Navigate to='all' />
                 }
             ]
-        },
-        {
-            path:'authorizationmethod',
-            // element:<Softwaredetail/>
         },
         {
             path: '',

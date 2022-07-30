@@ -1,0 +1,113 @@
+.Repairfangan {
+    margin-top: -30px;
+    margin-left: 30px;
+}
+
+.Repairfangan-register {
+    position: absolute;
+    z-index: 2;
+    width: 642px;
+    height: 432px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20%;
+
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.Repairfangan-fix {
+    margin-top: 70px;
+    margin-left: 60px;
+    width: 500px;
+    height: 300px;
+}
+
+.Repairfangan-registerName {
+    width: 642px;
+    height: 45px;
+
+    padding-left: 20px;
+    padding-top: 10px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.035em;
+    color: #FFFFFF;
+
+    /* 主色 */
+
+    background: #3D6DB5;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.Repairfangan-cancelBtn:hover {
+    cursor: pointer;
+    color: 'white'
+}
+
+.Repairfangan-cancelBtn {
+    position: absolute;
+    left: 92%;
+}
+
+.Repairfangan-mask {
+    position: absolute;
+    display: block;
+    /* opacity: 0.6; */
+    top: -130px;
+    ;
+    left: -368px;
+    width: 146.5%;
+    height: 798px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Repairfangan-groupid {
+    /* position: absolute;
+    left: 30px;
+    top: 135px; */
+}
+
+.Repairfangan-versionInf {
+    position: absolute;
+    left: 30px;
+    top: 80px;
+}
+
+.Repairfangan-verdesc {
+    position: absolute;
+    left: 30px;
+    top: 200px;
+}
+
+.Repairfangan-submit {
+    position: absolute;
+    left: 250px;
+    top: 370px;
+}
+
+.Repairfangan-upload {
+    position: absolute;
+    left: 425px;
+    top: 93px;
+}
+
+.Repairfangan-yue::after {
+    position: absolute;
+    left: 480px;
+    top: 145px;
+    content: '月';
+}
+
+.Repairfangan-yuan::after {
+    position: absolute;
+    left: 465px;
+    top: 315px;
+    content: '元';
+}

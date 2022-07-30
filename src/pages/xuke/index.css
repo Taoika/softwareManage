@@ -1,0 +1,84 @@
+.Xuke-register {
+    position: absolute;
+    z-index: 2;
+    width: 642px;
+    height: 382px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20%;
+
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.Xuke-fix {
+    margin-top: 70px;
+    margin-left: 60px;
+    width: 400px;
+    height: 300px;
+}
+
+.Xuke-registerName {
+    width: 542px;
+    height: 45px;
+
+    padding-left: 50px;
+    padding-top: 30px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.Xuke-cancelBtn:hover {
+    cursor: pointer;
+    color: 'white'
+}
+
+.Xuke-cancelBtn {
+    position: absolute;
+    left: 92%;
+}
+
+.Xuke-mask {
+    position: absolute;
+    display: block;
+    /* opacity: 0.6; */
+    top: -70px;
+    ;
+    left: -267px;
+    width: 129%;
+    height: 798px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Xuke-fix ul {
+    width: 127%;
+    height: 100%;
+    margin-top: -20px;
+    /* background-color: blue; */
+}
+
+.Xuke-fix ul li {
+    float: left;
+    width: 229px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    margin-right: 50px;
+    /* 中灰色 */
+    color: #606060;
+    margin-bottom: 30px;
+}
+
+.Xuke-fix ul li:nth-child(2n) {
+    margin-right: 0px;
+}
