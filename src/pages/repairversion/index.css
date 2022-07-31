@@ -1,0 +1,94 @@
+.Repairverson-register {
+    position: absolute;
+    z-index: 2;
+    width: 642px;
+    height: 432px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20%;
+
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.Repairverson-fix {
+    margin-top: 70px;
+    margin-left: 60px;
+    width: 500px;
+    height: 300px;
+}
+
+.Repairverson-registerName {
+    width: 642px;
+    height: 45px;
+
+    padding-left: 20px;
+    padding-top: 10px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.035em;
+    color: #FFFFFF;
+
+    /* 主色 */
+
+    background: #3D6DB5;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.Repairverson-cancelBtn:hover {
+    cursor: pointer;
+    color: 'white'
+}
+
+.Repairverson-cancelBtn {
+    position: absolute;
+    left: 92%;
+}
+
+.Repairverson-mask {
+    position: absolute;
+    display: block;
+    /* opacity: 0.6; */
+    top: -130px;
+    ;
+    left: -368px;
+    width: 146.5%;
+    height: 798px;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Repairverson-groupid {
+    position: absolute;
+    left: 30px;
+    top: 135px;
+}
+
+.Repairverson-versionInf {
+    position: absolute;
+    left: 30px;
+    top: 80px;
+}
+
+.Repairverson-verdesc {
+    position: absolute;
+    left: 30px;
+    top: 200px;
+}
+
+.Repairverson-submit {
+    position: absolute;
+    left: 250px;
+    top: 370px;
+}
+
+.Repairverson-upload {
+    position: absolute;
+    left: 425px;
+    top: 93px;
+}

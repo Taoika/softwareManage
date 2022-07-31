@@ -1,10 +1,14 @@
-header .logo {
+.header .logo {
     float: left;
-    width: 30px;
-    height: 31px;
+    width: 230px;
+    height: 51px;
     /* margin: 16px 24px 16px 0; */
-    margin-right: 40px;
+    margin-right: 740px;
     /* background: rgba(255, 255, 255, 0.3); */
+}
+
+.header {
+    background: #3D6DB5;
 }
 
 header .logo:hover {
@@ -32,4 +36,87 @@ header .logo:hover {
 
 .site-layout-background {
     background: #fff;
+}
+
+.head-news {
+    color: hsla(0, 0%, 100%, .65);
+}
+
+.ant-menu-submenu ul:nth-child(1) {
+    background: #FFFFFF !important;
+    margin-left: -150px;
+    height: 500px;
+}
+
+.ant-menu-submenu ul li {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid rgba(0, 0, 0, .1) !important;
+    height: 130px !important;
+
+}
+
+.head-newsli {
+    display: block;
+    /* background: #FFFFFF; */
+    /* 卡片 */
+    width: 400px;
+    color: black !important;
+}
+
+
+.ant-menu-submenu ul::-webkit-scrollbar {
+    width: 0px !important;
+}
+
+
+.head-newslititle {
+    margin-top: -100px;
+    margin-left: 120px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    text-align: center;
+
+    /* 主色 */
+
+    color: #3D6DB5;
+}
+
+.head-newsliclick {
+    margin-top: 15px;
+    margin-left: 120px;
+
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 15px;
+    /* identical to box height */
+
+    text-align: center;
+
+    /* 中灰色 */
+
+    color: #606060;
+}
+
+.head-newslitime {
+    border: none !important;
+    margin-top: 20px;
+    margin-left: 120px;
+
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+
+    color: #999999;
+
 }

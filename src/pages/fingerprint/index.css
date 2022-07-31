@@ -1,0 +1,106 @@
+.Fingerprint-title {
+    position: absolute;
+    width: 96px;
+    height: 29px;
+    left: 84px;
+    top: 38px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.Fingerprint-main {
+    position: absolute;
+    width: 1056px;
+    height: 622px;
+    left: 78px;
+    top: 78px;
+
+    background: #FFFFFF;
+    /* 框 */
+
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.Fingerprint-main ul li {
+    width: 1056px;
+    height: 81px;
+    background: #FFFFFF;
+    padding-left: 45px;
+    padding-top: 30px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* 中灰色 */
+
+    color: #606060;
+    /* 卡片 */
+    border-bottom: 0.5px solid rgba(0, 0, 0, .1);
+    box-shadow: 0px 0.5px 1px rgba(16, 16, 16, 0.15);
+}
+
+.Fingerprint-main ul li svg {
+    margin-left: 884px;
+    margin-top: -3px;
+}
+
+.Fingerprint-save {
+    position: absolute;
+    width: 185px;
+    height: 54px;
+    left: 312px;
+    top: 520px;
+
+    /* 主色 */
+    border: 0;
+    background: #3D6DB5;
+    border-radius: 8px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+}
+
+.Fingerprint-main ul li svg:hover {
+    cursor: pointer;
+}
+
+.Fingerprint-add {
+    position: absolute;
+    width: 185px;
+    height: 54px;
+    left: 585px;
+    top: 520px;
+
+    /* 框框 */
+    border: 0;
+
+    background: #C1C1C1;
+    border-radius: 8px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* 中灰色 */
+
+    color: #606060;
+
+}

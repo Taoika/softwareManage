@@ -1,0 +1,87 @@
+.Addsoftware-title {
+    position: absolute;
+    width: 128px;
+    height: 39px;
+    left: 53px;
+    top: 41px;
+
+    /* 一级标题 */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.Addsoftware-box {
+    position: absolute;
+    width: 1179px;
+    height: 600px;
+    left: 42px;
+    top: 96px;
+
+    background: #FFFFFF;
+    /* 框 */
+
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+}
+
+.Addsoftware-name {
+    position: absolute;
+    left: 50px;
+    top: 30px;
+}
+
+.Addsoftware-verdesc {
+    position: absolute;
+    left: -350px;
+    top: 370px;
+}
+
+.Addsoftware-type {
+    position: absolute;
+    left: 480px;
+    top: 30px;
+}
+
+.Addsoftware-desc {
+    position: absolute;
+    left: -134px;
+    top: 100px;
+}
+
+.Addsoftware-groupid {
+    position: absolute;
+    left: 50px;
+    top: 300px;
+}
+
+.Addsoftware-versionInf {
+    position: absolute;
+    left: 450px;
+    top: 300px;
+}
+
+.Addsoftware-submit {
+    position: absolute;
+    left: 470px;
+    top: 540px;
+}
+
+.Addsoftware-upload {
+    position: absolute;
+    left: 890px;
+    top: 301px;
+}
+
+.Addsoftware-uploadpic {
+    position: absolute;
+    left: 850px;
+    top: 101px;
+}

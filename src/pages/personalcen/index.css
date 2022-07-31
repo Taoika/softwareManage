@@ -12,3 +12,10 @@
     left: 255px;
     width: 1200px;
 }
+
+.Personalcen .ant-menu-sub li {
+    height: 50px !important;
+    margin: 0%;
+    margin-bottom: 0px !important;
+    border: none !important;
+}

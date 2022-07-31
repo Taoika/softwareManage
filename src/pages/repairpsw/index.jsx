@@ -52,7 +52,7 @@ export default function Repairpsw() {
               <Input.Password />
             </Form.Item>
             <Form.Item
-              name="newpassword"
+              name="password"
               label="新密码"
               rules={[
                 {

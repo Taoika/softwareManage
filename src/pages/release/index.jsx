@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import './index.css'
 
 export default class Release extends Component {
-
-    // 发布软件组件
   render() {
     return (
       <div className="release">

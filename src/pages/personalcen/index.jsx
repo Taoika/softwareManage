@@ -1,5 +1,5 @@
 import './index.css'
-import { AppstoreOutlined, SettingOutlined, MailOutlined } from '@ant-design/icons';
+import { DownloadOutlined, ContainerOutlined, KeyOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 import React from 'react'; function getItem(label, key, icon, children, type) {
@@ -13,11 +13,11 @@ import React from 'react'; function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem(<Link to='mysoftware'>我的软件</Link>, 'sub1', <MailOutlined />),
-    getItem(<Link to='myauthorization'>我的授权</Link>, 'sub2', <AppstoreOutlined />),
-    getItem('账户信息', 'sub4', <SettingOutlined />, [
-        getItem(<Link to='personalinf'>个人信息</Link>, 'personalinf'),
-        getItem(<Link to='fingerprint'>指纹管理</Link>, 'fingerprint'),
+    getItem(<Link to='mysoftware'>我的软件</Link>, 'sub1', <DownloadOutlined />),
+    getItem(<Link to='myauthorization'>我的授权</Link>, 'sub2', <KeyOutlined />),
+    getItem('账户信息', 'sub4', <ContainerOutlined />, [
+        getItem(<Link className='personalcen-userlInfo' to='personalinf'>个人信息</Link>, 'personalinf'),
+        getItem(<Link className='personalcen-userlInfo' to='fingerprint'>指纹管理</Link>, 'fingerprint'),
     ]),
 ];
 

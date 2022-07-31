@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input, Alert } from 'antd';
 import React from 'react';
 import './index.css'
 import axios from 'axios'
+ 
 const Namel = () => {
     const [error, setError] = React.useState(0);
     const onFinish = (values) => {
@@ -18,9 +19,10 @@ const Namel = () => {
             })
         }).then(
             response => {
+                console.log(response);
                 const { data } = response;
                 if (data.code === 60001) {
-                    alert('注册成功！');
+                    alert('登录成功！');
                     console.log(response);
                 }
                 else {

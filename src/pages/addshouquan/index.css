@@ -1,0 +1,70 @@
+.Addshouquan-register {
+    position: absolute;
+    z-index: 1000;
+    width: 442px;
+    height: 232px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
+
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.Addshouquan-fix {
+    margin-top: 70px;
+    margin-left: 60px;
+    width: 400px;
+    height: 300px;
+}
+
+.Addshouquan-registerName {
+    width: 542px;
+    height: 45px;
+
+    padding-left: 20px;
+    padding-top: 10px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.035em;
+    color: #FFFFFF;
+
+    /* 主色 */
+
+    background: #3D6DB5;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.Addshouquan-cancelBtn:hover {
+    cursor: pointer;
+    color: 'white'
+}
+
+.Addshouquan-cancelBtn {
+    position: absolute;
+    left: 92%;
+}
+
+.Addshouquan-mask {
+    position: absolute;
+    display: block;
+    /* opacity: 0.6; */
+    top: -70px;
+    ;
+    left: -267px;
+    width: 129%;
+    height: 798px;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Addshouquan-number {
+    position: absolute;
+    margin-top: -20px;
+    margin-left: -30px;
+}
