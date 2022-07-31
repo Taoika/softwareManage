@@ -9,17 +9,32 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 export default function Repairpsw() {
   const navigate = useNavigate();
+  const id = document.cookie.split(';')[2].split('=')[1]
+
   const back = () => {
     navigate(-1);
   }
+
   const onFinish = (values) => {
-    const { username, password, email, phone_number } = values;
     axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
+      },
       method: 'POST',
-      url: 'http://39.98.41.126:31104/users/register',
-      data: JSON.stringify({ username, password, email, phone_number })
+      url: 'http://106.13.18.48/users/updatePwd',
+      data: JSON.stringify({
+        user_id: id,
+        oldPwd: values.initpassword,
+        newPwd: values.password
+      })
     }).then(
-      response => { alert('注册成功！'); console.log(response); back(); },
+      response => {
+        alert('修改成功！');
+        console.log(response, '修改密码');
+        back();
+
+      },
     )
     console.log('Received values of form: ', values);
   };

@@ -3,6 +3,7 @@ import img from "../images/CATIA.jpg"
 import { useNavigate } from 'react-router-dom'
 import './index.css'
 import axios from 'axios'
+axios.defaults.withCredentials = true
 
 
 export default function All() {
@@ -19,13 +20,20 @@ export default function All() {
   React.useEffect(() => {
     axios({
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
       url: 'http://106.13.18.48/softwares',
     }).then(
       response => {
-        setSoftwares(response.data.data)
+        if (response.data.code === 70401) {
+          setSoftwares(response.data.data)
+        }
+        else {
+          alert(response.data.msg)
+          navigate('/dlzc');
+        }
       },
       error => {
         console.log(error);

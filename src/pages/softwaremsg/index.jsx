@@ -3,10 +3,26 @@ import { Image } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useLocation } from 'react-router-dom';
-
+import axios from 'axios';
 import './index.css'
 export default function Softwaremsg() {
+    const handle = () => {
+        axios({
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+            url: 'http://106.13.18.48/files/download',
+            data: JSON.stringify({ user_id: 8 })
+            //  responseType: 'blob'  // 设置响应的数据类型为一个包含二进制数据的 Blob 对象，必须设置！！！
+        }).then(
+            res => {
+                console.log(res);
+            }
+        )
+    }
     const state = useLocation().state;
+    console.log('msg', state);
     const size = 'large';
     return (
         <div>
@@ -21,7 +37,7 @@ export default function Softwaremsg() {
                 <div className='Softwaremsg-type'>{state.type}</div>
                 <div className='Softwaremsg-size'>大小 : 3.12GB</div>
                 <div className='Softwaremsg-version'>版本 : xxxxxx</div>
-                <Button className='Softwaremsg-download' type="primary" icon={<DownloadOutlined />} size={size}>
+                <Button className='Softwaremsg-download' onClick={handle} type="primary" icon={<DownloadOutlined />} size={size}>
                     Download
                 </Button>
                 <div className='Softwaremsg-summary'>概述</div>

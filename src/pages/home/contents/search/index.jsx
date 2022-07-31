@@ -28,7 +28,8 @@ export default function All() {
 
     axios({
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
       url: `http://106.13.18.48/softwares/search?name=${state.softwarename}&isVague=true`,
