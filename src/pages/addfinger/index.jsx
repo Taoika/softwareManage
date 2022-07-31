@@ -5,26 +5,43 @@ import {
 } from 'antd';
 import React from 'react';
 import './index.css'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, } from 'react-router-dom';
 import axios from 'axios';
 export default function Addfinger() {
-  const location = useLocation()
 
   const navigate = useNavigate();
   const back = () => {
     navigate(-1);
   }
   const onFinish = (values) => {
-    console.log(location);
-    // const { username, password, email, phone_number } = values;
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://39.98.41.126:31104/users/register',
-    //   data: JSON.stringify({ username, password, email, phone_number })
-    // }).then(
-    //   response => { alert('注册成功！'); console.log(response); back(); },
-    // )
-    // console.log('Received values of form: ', values);
+    console.log(values, 'values');
+    const user_id = document.cookie.split(';')[2].split('=')[1]
+    const { owner_name, mac, cpu, hard } = values
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
+      },
+      method: 'POST',
+      url: `http://106.13.18.48/hardInfos`,
+      data: JSON.stringify({
+        user_id, owner_name, mac, cpu, hard
+      })
+    }).then(
+      response => {
+        if (response.data.code === 92001) {
+          alert('添加指纹成功！')
+          navigate(-1)
+        }
+        else {
+          alert(response.data.msg)
+        }
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   };
   return (
     <div className='Addfinger-mask'>
@@ -38,7 +55,7 @@ export default function Addfinger() {
             onFinish={onFinish}>
             {/* 机主名 */}
             <Form.Item
-              name="who"
+              name="owner_name"
               label="机主名"
               rules={[
                 {
@@ -53,7 +70,7 @@ export default function Addfinger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input />
             </Form.Item>
             {/* mac码 */}
             <Form.Item
@@ -72,7 +89,7 @@ export default function Addfinger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input />
             </Form.Item>
             {/* cpu序列 */}
             <Form.Item
@@ -91,7 +108,7 @@ export default function Addfinger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input />
             </Form.Item>
             {/* 硬盘序列 */}
             <Form.Item
@@ -110,7 +127,7 @@ export default function Addfinger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input />
             </Form.Item>
             <Form.Item >
               <Button type="primary" style={{ position: 'absolute', width: '200px', left: '52%', top: '10%', transform: 'translateX(-50%)' }} htmlType="submit">

@@ -24,15 +24,43 @@ export default function All() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
-      url: `http://106.13.18.48/licenses?user_id=${13}`,
+      url: `http://39.98.41.126:31104/licenses?user_id=${id}`,
     }).then(
       response => {
+
+        if (response.data.code === 91101 && response.data.data) {
+          const ids = [];
+          response.data.data.map((x) => {
+            ids.push(x.software_id);
+          })
+          axios({
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': document.cookie.split(';')[0].split('=')[1]
+            },
+            method: 'POST',
+            url: `http://39.98.41.126:31104/softwares/ids`,
+            data: JSON.stringify({
+              ids
+            })
+          }).then(
+            response => {
+              if (response.data.code === 70401 && response.data.data) {
+                setSoftwares(response.data.data)
+              }
+              else {
+                alert(response.data.msg)
+              }
+              console.log(response)
+            }
+          )
+        }
+        else {
+          alert(response.data.msg)
+        }
         // setSoftwares(response.data.data)
-        console.log(response);
+        console.log(response, '许可证');
       },
-      error => {
-        console.log(error);
-      }
     )
   }, [])
   return (

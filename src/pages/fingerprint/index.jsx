@@ -6,18 +6,19 @@ import {
     RightOutlined
 } from '@ant-design/icons';
 export default function Fingerprint() {
+    const [msg, setMsg] = React.useState([]);
     const navigate = useNavigate();
-    const finger = () => {
+    const finger = (x) => {
         navigate('/personalcen/finger', {
             state: {
-
+                x
             }
         })
     }
-    const addfinger = (e) => {
+    const addfinger = () => {
         navigate('/personalcen/addfinger', {
             state: {
-                e
+
             }
         })
     }
@@ -30,14 +31,14 @@ export default function Fingerprint() {
                 'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'GET',
-            url: `http://106.13.18.48/hardInfos?user_id=${13}`,
+            url: `http://106.13.18.48/hardInfos?user_id=${id}`,
         }).then(
             response => {
-                if (response.data.code === 60201) {
-                    alert('修改成功！')
+                if (response.data.code === 92201 && response.data.data) {
+                    setMsg(response.data.data)
                 }
                 else {
-                    alert(response.data.data.msg)
+                    alert(response.data.msg)
                 }
                 // setSoftwares(response.data.data)
                 console.log(response);
@@ -57,12 +58,13 @@ export default function Fingerprint() {
             <div className='Fingerprint-title'>指纹管理</div>
             <div className='Fingerprint-main'>
                 <ul>
-                    <li>指纹1<RightOutlined onClick={(e) => finger(e)} /></li>
-                    <li>指纹2<RightOutlined onClick={() => finger()} /></li>
-                    <li>指纹3<RightOutlined onClick={() => finger()} /></li>
-                    <li>指纹4<RightOutlined onClick={() => finger()} /></li>
+                    {
+                        msg.map((x, i) => {
+                            return (<li>指纹{i + 1}<RightOutlined onClick={() => finger(x)} /></li>)
+                        })
+                    }
                 </ul>
-                <button className='Fingerprint-save'>保存</button ><button onClick={() => addfinger()} className='Fingerprint-add'>新增指纹</button>
+                <button onClick={() => addfinger()} className='Fingerprint-add'>新增指纹</button>
             </div>
 
         </div>

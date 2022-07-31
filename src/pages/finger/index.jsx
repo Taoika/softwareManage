@@ -7,37 +7,46 @@ import React from 'react';
 import './index.css'
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-const data = [
-  {
-    fingername: '指纹1'
-  },
-  {
-    fingername: '指纹2'
 
-  },
-]
 export default function Finger() {
-  const location = useLocation()
+  const location = useLocation().state.x
   const navigate = useNavigate();
   const back = () => {
     navigate(-1);
   }
+  console.log(location, '指纹详情');
   const onFinish = (values) => {
-    // const { username, password, email, phone_number } = values;
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://39.98.41.126:31104/users/register',
-    //   data: JSON.stringify({ username, password, email, phone_number })
-    // }).then(
-    //   response => { alert('注册成功！'); console.log(response); back(); },
-    // )
-    // console.log('Received values of form: ', values);
-    console.log(location);
+    //修改指纹
+
+    const { info_id, user_id } = location
+    const { owner_name, mac, cpu, hard } = values
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
+      },
+      method: 'PUT',
+      url: 'http://106.13.18.48/hardInfos',
+      data: JSON.stringify({
+        info_id, user_id, owner_name, mac, cpu, hard
+      })
+    }).then(
+      res => {
+        if (res.data.code === 92101) {
+          console.log('修改指纹成功！');
+        }
+        else {
+          alert(res.data.msg);
+          navigate(-1);
+        }
+      }
+    )
+    console.log('Received values of form: ', values);
   };
   return (
     <div className='finger-mask'>
       <div className='finger-register'>
-        <div className='finger-registerName'>指纹
+        <div className='finger-registerName'>修改指纹
           <button className='finger-cancelBtn' onClick={back} style={{ background: '#3D6DB5', border: 'none' }}>X</button>
         </div>
         <div className='finger-fix'>
@@ -46,7 +55,7 @@ export default function Finger() {
             onFinish={onFinish}>
             {/* 机主名 */}
             <Form.Item
-              name="who"
+              name="owner_name"
               label="机主名"
               rules={[
                 {
@@ -61,7 +70,7 @@ export default function Finger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input placeholder={location.owner_name} />
             </Form.Item>
             {/* mac码 */}
             <Form.Item
@@ -80,7 +89,7 @@ export default function Finger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input placeholder={location.mac} />
             </Form.Item>
             {/* cpu序列 */}
             <Form.Item
@@ -99,7 +108,7 @@ export default function Finger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input placeholder={location.cpu} />
             </Form.Item>
             {/* 硬盘序列 */}
             <Form.Item
@@ -118,11 +127,11 @@ export default function Finger() {
               ]}
               hasFeedback
             >
-              <Input.Password />
+              <Input placeholder={location.hard} />
             </Form.Item>
             <Form.Item >
               <Button type="primary" style={{ position: 'absolute', width: '200px', left: '52%', top: '10%', transform: 'translateX(-50%)' }} htmlType="submit">
-                确认
+                确认修改
               </Button>
             </Form.Item>
           </Form>
