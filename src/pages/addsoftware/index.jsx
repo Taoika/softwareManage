@@ -33,6 +33,10 @@ const normFile = (e) => {
     // formData.append('file',e);
     // console.log(formData);
     axios({ //axios
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTMiLCJwZXJtaXNzaW9uIjoiMCIsImV4cCI6MTY1OTI2ODMzNywidXNlcm5hbWUiOiJkb25nZG9uZyJ9.i7sxZ0Xa9c5sEqwDAR2J7aa5mExGl9HCM1FSlLXZZEM'
+        },
         method: 'post',
         url: 'http://106.13.18.48/files/uploadImg',
         file1: e,
@@ -115,7 +119,8 @@ export default function Addsoftware() {
         const { software_name, desc, group_id, versionInf, version_desc } = values
         axios({
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsInBlcm1pc3Npb24iOiIxIiwiZXhwIjoxNjU5MjYwNjMxLCJ1c2VybmFtZSI6Im91cm9ib3JvcyJ9.DfTk2ccVw9ws3U2G97sANalyfvcLatya_EFdDgsfqOQ'
             },
             method: 'POST',
             url: 'http://106.13.18.48/softwares',
