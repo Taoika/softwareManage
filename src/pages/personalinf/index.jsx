@@ -3,14 +3,67 @@ import { Button, Form, Input, Space, Tooltip, Typography } from 'antd';
 import './index.css'
 import { useNavigate } from 'react-router-dom'
 import { Avatar } from 'antd';
+import axios from 'axios';
 export default function Personalinf() {
     const navigate = useNavigate();
+    const [msg, setMsg] = React.useState({})
+    const id = document.cookie.split(';')[2].split('=')[1]
     const repairpsw = () => {
         navigate('/personalcen/repairpsw')
     }
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+        //发请求修改用户基本信息
+        axios({
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': document.cookie.split(';')[0].split('=')[1]
+            },
+            method: 'PUT',
+            url: `http://106.13.18.48/users`,
+            data: JSON.stringify({
+                user_id: id,
+                username: values.username,
+                phone_number: values.phone_number,
+                email: values.email
+            })
+        }).then(
+            response => {
+                // setSoftwares(response.data.data)
+                if (response.data.code === 60401) {
+                    setMsg(response.data.data)
+                }
+                console.log(response);
+
+            },
+            error => {
+                console.log(error);
+            }
+        )
     };
+    //发请求获取用户基本信息
+    React.useEffect(() => {
+        axios({
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': document.cookie.split(';')[0].split('=')[1]
+            },
+            method: 'GET',
+            url: `http://106.13.18.48/users/${id}`,
+        }).then(
+            response => {
+                // setSoftwares(response.data.data)
+                if (response.data.code === 60401) {
+                    setMsg(response.data.data)
+                }
+                console.log(response);
+
+            },
+            error => {
+                console.log(error);
+            }
+        )
+    }, [])
     return (
         <div>
             <div className='Personalinf-title'>个人信息</div>
@@ -41,7 +94,7 @@ export default function Personalinf() {
                                     },
                                     { required: true, message: 'Username is required' }]}
                             >
-                                <Input style={{ width: 360 }} placeholder="Please input" />
+                                <Input style={{ width: 360 }} placeholder={msg.username} />
                             </Form.Item>
                             <Tooltip title="可以修改您的用户名">
                                 <Typography.Link href="#API">Need Help?</Typography.Link>
@@ -60,7 +113,7 @@ export default function Personalinf() {
                                     },
                                     { required: true, message: 'phone is required' }]}
                             >
-                                <Input style={{ width: 360 }} placeholder="Please input" />
+                                <Input style={{ width: 360 }} placeholder={msg.phone_number} />
                             </Form.Item>
                             <Tooltip title="可以修改您的手机号">
                                 <Typography.Link href="#API">Need Help?</Typography.Link>
@@ -81,7 +134,7 @@ export default function Personalinf() {
                                 ]
                                 }
                             >
-                                <Input style={{ width: 360 }} placeholder="Please input" />
+                                <Input style={{ width: 360 }} placeholder={msg.email} />
                             </Form.Item>
                             <Tooltip title="可以修改您的邮箱地址">
                                 <Typography.Link href="#API">Need Help?</Typography.Link>

@@ -25,37 +25,8 @@ const validateMessages = {
         range: '${label} must be between ${min} and ${max}',
     },
 };
-//上传图片
-const normFile = (e) => {
-    console.log('Upload event:', e);
-    console.log(e.file);
-    // const formData=new FormData();
-    // formData.append('file',e);
-    // console.log(formData);
-    axios({ //axios
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTMiLCJwZXJtaXNzaW9uIjoiMCIsImV4cCI6MTY1OTI2ODMzNywidXNlcm5hbWUiOiJkb25nZG9uZyJ9.i7sxZ0Xa9c5sEqwDAR2J7aa5mExGl9HCM1FSlLXZZEM'
-        },
-        method: 'post',
-        url: 'http://106.13.18.48/files/uploadImg',
-        file1: e,
-        type:'software',
-        id:1,
-    })
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-    // console.log(formData);
-    if (Array.isArray(e)) {
-        return e;
-    }
-    return e?.fileList;
-};
-//上传图片
+
+//上传图片?
 const getBase64 = (img, callback) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -79,9 +50,90 @@ const beforeUpload = (file) => {
 };
 
 export default function Addsoftware() {
-    //上海图片
+    // 保存图片文件 安装包文件 用于发送请求的formData数据
+    const formDataImg=new FormData();
+    const formDataFile=new FormData();
+
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
+
+    //上传图片
+const normImg = (e) => {
+    console.log('Upload event:', e);
+    // console.log(e.file);
+    let msg = {'file1':e,'type':'software',"id":1}
+    for (const key in msg) {
+        formDataImg.append(key,msg[key])
+    }
+
+    // axios({
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': document.cookie.split(';')[0].split('=')[1]
+    //     },
+    //     method: 'POST',
+    //     url: 'http://39.98.41.126:31104/files/uploadImg',
+    //     data:formData,
+    //   }).then(
+    //     response => {
+    //     //   if (response.data.code === 70401) {
+    //     //     setSoftwares(response.data.data)
+    //     //   }
+    //     //   else {
+    //     //     alert(response.data.msg)
+    //     //     navigate('/dlzc');
+    //     //   }
+    //     console.log(response.data);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
+
+//上传安装包
+const normFile = (e) => {
+    // console.log('Upload event:', e);
+    // console.log(e.file);
+    let msg = {'file1':e.filelist[0].file.originFileObj}
+    for (const key in msg) {
+        formDataFile.append(key,msg[key])
+    }
+
+    // axios({
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': document.cookie.split(';')[0].split('=')[1]
+    //     },
+    //     method: 'POST',
+    //     url: 'http://39.98.41.126:31104/files/uploadFile',
+    //     data:formData,
+    //   }).then(
+    //     response => {
+    //     //   if (response.data.code === 70401) {
+    //     //     setSoftwares(response.data.data)
+    //     //   }
+    //     //   else {
+    //     //     alert(response.data.msg)
+    //     //     navigate('/dlzc');
+    //     //   }
+    //     console.log(response.data);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
 
     const handleChange = (info) => {
         if (info.file.status === 'uploading') {
@@ -114,16 +166,17 @@ export default function Addsoftware() {
         return  false;
     }
 
-    //上传图片
+    // 发布软件
     const onFinish = (values) => {
         const { software_name, desc, group_id, versionInf, version_desc } = values
+        // 发送请求上传软件数据
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOCIsInBlcm1pc3Npb24iOiIxIiwiZXhwIjoxNjU5MjYwNjMxLCJ1c2VybmFtZSI6Im91cm9ib3JvcyJ9.DfTk2ccVw9ws3U2G97sANalyfvcLatya_EFdDgsfqOQ'
+                'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'POST',
-            url: 'http://106.13.18.48/softwares',
+            url: 'http://39.98.41.126:31104/softwares',
             data: JSON.stringify({
                 software: {
                     software_name,
@@ -134,24 +187,45 @@ export default function Addsoftware() {
                     versionInf,
                     desc: version_desc
                 }
-
             })
         }).then(
-
             response => {
                 if (response.data.code === 70101) {
-                    alert('发布成功！');
+                    // console.log(response.data);
+                    // 发送请求上传安装包数据
+                    formDataFile.append("software_id",response.data.data.software_id);
+                    formDataFile.append("version_id",response.data.data.version_id);
+                    axios({
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Authorization': document.cookie.split(';')[0].split('=')[1]
+                        },
+                        method: 'POST',
+                        url: 'http://39.98.41.126:31104/files/uploadFile',
+                        data:formDataFile,
+                      }).then(
+                        response => {
+                        //   if (response.data.code === 70401) {
+                        //     setSoftwares(response.data.data)
+                        //   }
+                        //   else {
+                        //     alert(response.data.msg)
+                        //     navigate('/dlzc');
+                        //   }
+                        console.log(response.data);
+                        },
+                        error => {
+                          console.log(error);
+                        }
+                      )
                 }
                 else {
                     alert(response.data.msg);
                 }
-                console.log(response);
             },
             error => {
                 alert('异常错误！');
             }
-
-
         )
         console.dir('Received values of form: ', values);
     };
@@ -266,6 +340,11 @@ export default function Addsoftware() {
                             Submit
                         </Button>
                     </Form.Item>
+                    <Upload {...this.getPdfURL()} showUploadList={false}>
+                       <Button>
+                         <Icon type="upload" /> 上传文件
+                       </Button>
+                    </Upload>
                     {/* 安装包 */}
                     <Form.Item
                         rules={[
@@ -293,7 +372,7 @@ export default function Addsoftware() {
                         name="pic"
                         label=""
                         valuePropName="fileList"
-                        getValueFromEvent={normFile}                    >
+                        getValueFromEvent={normImg}                    >
                         <Upload
                             name="avatar"
                             listType="picture-card"

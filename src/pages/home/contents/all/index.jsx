@@ -3,7 +3,7 @@ import img from "../images/CATIA.jpg"
 import { useNavigate } from 'react-router-dom'
 import '../all/index.css'
 import axios from 'axios'
-// axios.defaults.withCredentials = true    //全局设置axios允许携带cookie进行访问
+axios.defaults.withCredentials = true
 
 
 export default function All() {
@@ -11,7 +11,7 @@ export default function All() {
   const navigate = useNavigate()
 
   function showDetail(element) {
-    console.log(element);
+    // console.log(element);
     navigate('/softwaredetail', {
       state: {
         element
@@ -23,17 +23,21 @@ export default function All() {
   React.useEffect(() => {
     axios({
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
-      // xhrFields: {                            
-      //   withCredentials: true                        
-      // }, 
       method: 'GET',
-      url: 'http://106.13.18.48/softwares',
+      url: 'http://39.98.41.126:31104/softwares',
       
     }).then(
       response => {
-        setSoftwares(response.data.data)
+        if (response.data.code === 70401) {
+          setSoftwares(response.data.data)
+        }
+        else {
+          alert(response.data.msg)
+          navigate('/dlzc');
+        }
       },
       error => {
         console.log(error);

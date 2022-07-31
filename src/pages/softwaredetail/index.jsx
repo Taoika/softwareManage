@@ -26,6 +26,7 @@ const Softwaredetail = () => {
         getItem(<Link to='licensing' state={msg}>授权许可</Link>, 'sub4', <KeyOutlined />)
     ];
     React.useEffect(() => {
+        // console.log('location', location.state);
         const name = location.state.element && location.state.element.software_name;
         const desc = location.state.element && location.state.element.desc;
         const type = location.state.element && location.state.element.group_id;

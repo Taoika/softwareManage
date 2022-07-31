@@ -16,16 +16,19 @@ export default function All() {
   }
   //发请求
   const [softwares, setSoftwares] = React.useState([]);
+  const id = document.cookie.split(';')[2].split('=')[1]
   React.useEffect(() => {
     axios({
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
-      url: 'http://106.13.18.48/softwares',
+      url: `http://106.13.18.48/licenses?user_id=${13}`,
     }).then(
       response => {
-        setSoftwares(response.data.data)
+        // setSoftwares(response.data.data)
+        console.log(response);
       },
       error => {
         console.log(error);

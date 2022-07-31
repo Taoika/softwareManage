@@ -1,13 +1,18 @@
 import React from 'react'
 import './index.css'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
     RightOutlined
 } from '@ant-design/icons';
 export default function Fingerprint() {
     const navigate = useNavigate();
     const finger = () => {
-        navigate('/personalcen/finger')
+        navigate('/personalcen/finger', {
+            state: {
+
+            }
+        })
     }
     const addfinger = (e) => {
         navigate('/personalcen/addfinger', {
@@ -16,6 +21,37 @@ export default function Fingerprint() {
             }
         })
     }
+    //发请求
+    const id = document.cookie.split(';')[2].split('=')[1]
+    React.useEffect(() => {
+        axios({
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': document.cookie.split(';')[0].split('=')[1]
+            },
+            method: 'GET',
+            url: `http://106.13.18.48/hardInfos?user_id=${13}`,
+        }).then(
+            response => {
+                if (response.data.code === 60201) {
+                    alert('修改成功！')
+                }
+                else {
+                    alert(response.data.data.msg)
+                }
+                // setSoftwares(response.data.data)
+                console.log(response);
+            },
+            error => {
+                console.log(error);
+            }
+        )
+    }, [])
+
+
+
+
+
     return (
         <div className='Fingerprint'>
             <div className='Fingerprint-title'>指纹管理</div>

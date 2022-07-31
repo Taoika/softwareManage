@@ -1,10 +1,12 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Alert } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import './index.css'
 import axios from 'axios'
  
 const Namel = () => {
+    const navigate = useNavigate();
     const [error, setError] = React.useState(0);
     const onFinish = (values) => {
         axios({
@@ -23,7 +25,30 @@ const Namel = () => {
                 const { data } = response;
                 if (data.code === 60001) {
                     alert('登录成功！');
+                    document.cookie = `header=${response.headers.authorization}`;
+                    document.cookie = `permission=${data.data.permission}`;
+                    document.cookie = `user=${data.data.user_id}`;
+
+
                     console.log(response);
+                    //普通用户
+                    console.log(response.data.data.permission);
+                    if (response.data.data.permission === 0) {
+                        navigate('/home', {
+                            state: {
+                                id: 0
+                            }
+                        })
+                    }
+                    //管理员
+                    else {
+                        navigate('/home', {
+                            state: {
+                                id: 1
+                            }
+                        })
+                    }
+
                 }
                 else {
                     alert(data.msg);

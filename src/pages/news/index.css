@@ -54,3 +54,8 @@
     margin-top: -25px;
     margin-left: 750px;
 }
+
+.ant-list-item-meta-description>div>div:first-child:hover {
+    cursor: pointer;
+    color: #3D6DB5;
+}
