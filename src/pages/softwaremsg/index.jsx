@@ -2,10 +2,15 @@ import React from 'react'
 import { Image } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './index.css'
+
 export default function Softwaremsg() {
+
+    const navigate = useNavigate()
+
+    // 点击下载
     const handle = () => {
         axios({
             headers: {
@@ -22,8 +27,134 @@ export default function Softwaremsg() {
         )
     }
     const state = useLocation().state;
-    console.log('msg', state);
+    // console.log('msg', state);
     const size = 'large';
+    // console.log(state);
+
+    // 版本id 版本信息 软件id
+    const [versionId, setVersionId] = React.useState([]);
+    const [versionInf, setVersionInf] = React.useState([]);
+    const [softwareId, setSoftwareId] = React.useState([]);
+
+    // 获取软件版本信息
+    React.useEffect(() => {
+    //   axios({
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     method: 'GET',
+    //     url: `http://106.13.18.48/versions/latest_${state.id}`,
+    //   }).then(
+    //     response => {
+    //         // console.log(response.data.data);
+    //         setVersionInf(response.data.data.versionInf)
+    //         setVersionId(response.data.data.version_id);
+    //         setSoftwareId(response.data.data.software_id)
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+    axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': document.cookie.split(';')[0].split('=')[1]
+        },
+        method: 'GET',
+        url: `http://106.13.18.48/versions/latest_${state.id}`,
+        
+      }).then(
+        response => {
+          if (response.data.code === 80401) {
+            setVersionInf(response.data.data.versionInf)
+            setVersionId(response.data.data.version_id);
+            setSoftwareId(response.data.data.software_id)
+          }
+          else {
+            alert(response.data.msg)
+            navigate('/dlzc');
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    }, [])
+
+    // 点击下载
+    function downloadFile(){
+        console.log(softwareId);
+        console.log(versionId);
+        // axios({
+        //     headers:{
+        //         'Content-Type': 'application/json'
+        //     },
+        //     method:'GET',
+        //     url:'http://106.13.18.48/files/downloadFile',
+        //     params: {
+        //         software_id:7,
+        //         version_id:8,
+        //         //type:"user",
+        //         //id:8
+        //     },
+        //     responseType: 'blob'  // 设置响应的数据类型为一个包含二进制数据的 Blob 对象，必须设置！！！
+        // })
+        // .then(
+        //     (response)=>{
+        //         console.log(response.data);
+        //         const blob = new Blob([response.data]);
+        //         const fileName = 'try';
+        //         const linkNode = document.createElement('a');
+        //         linkNode.download = fileName; //a标签的download属性规定下载文件的名称
+        //         linkNode.style.display = 'none';
+        //         linkNode.href = URL.createObjectURL(blob); //生成一个Blob URL
+        //         document.body.appendChild(linkNode);
+        //         linkNode.click();  //模拟在按钮上的一次鼠标单击
+        //         URL.revokeObjectURL(linkNode.href); // 释放URL 对象
+        //         document.body.removeChild(linkNode);
+        //     },
+        //     (error)=>{
+        //         console.log(error);
+        //     })
+        axios({
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': document.cookie.split(';')[0].split('=')[1]
+            },
+            method: 'GET',
+            url: 'http://39.98.41.126:31104/files/download',
+            params: {
+                software_id:softwareId,
+                version_id:versionId,
+                },
+            responseType: 'blob'  // 设置响应的数据类型为一个包含二进制数据的 Blob 对象，必须设置！！！
+          }).then(
+            response => {
+            //   if (response.data.code === 70401) {
+            //     setSoftwares(response.data.data)
+            //   }
+            //   else {
+            //     alert(response.data.msg)
+            //     navigate('/dlzc');
+            //   }
+                console.log(response.data);
+                const blob = new Blob([response.data]);
+                const fileName = 'try';
+                const linkNode = document.createElement('a');
+                linkNode.download = fileName; //a标签的download属性规定下载文件的名称
+                linkNode.style.display = 'none';
+                linkNode.href = URL.createObjectURL(blob); //生成一个Blob URL
+                document.body.appendChild(linkNode);
+                linkNode.click();  //模拟在按钮上的一次鼠标单击
+                URL.revokeObjectURL(linkNode.href); // 释放URL 对象
+                document.body.removeChild(linkNode);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+
     return (
         <div>
             <div className='Softwaremsg-card'>
@@ -36,8 +167,8 @@ export default function Softwaremsg() {
                 <div className='Softwaremsg-name'>{state.name}</div>
                 <div className='Softwaremsg-type'>{state.type}</div>
                 <div className='Softwaremsg-size'>大小 : 3.12GB</div>
-                <div className='Softwaremsg-version'>版本 : xxxxxx</div>
-                <Button className='Softwaremsg-download' onClick={handle} type="primary" icon={<DownloadOutlined />} size={size}>
+                <div className='Softwaremsg-version'>版本 : {versionInf}</div>
+                <Button className='Softwaremsg-download' onClick={downloadFile} type="primary" icon={<DownloadOutlined />} size={size}>
                     Download
                 </Button>
                 <div className='Softwaremsg-summary'>概述</div>
@@ -47,3 +178,4 @@ export default function Softwaremsg() {
         </div>
     )
 }
+

@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import moment from 'moment'
+import { useNavigate,useLocation } from 'react-router-dom'
+import axios from 'axios'
 import img1 from './images/删除.png'
 import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
@@ -20,33 +22,79 @@ const EditableRow = ({ index, ...props }) => {
 
 
 const MVersionImf = () => {
+
   const navigate = useNavigate();
+
   const pushnewversion = () => {
     navigate('/repairsoftware/pushnewversion')
   }
+
   const repairversion = () => {
     navigate('/repairsoftware/repairversion')
   }
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      versionInf: '111111',
-      msg: '阿库娅阿库娅阿库娅阿库娅阿库娅',
-      desc: '1111111sgrnsetntffffffffsss1111111sgrnsetntffffffffs及地方很',
-    },
-    {
-      key: '1',
-      versionInf: '22222',
-      msg: '哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷',
-      desc: '1111111sgrnsetntOEhhiperf',
-    },
-  ]);
 
+  const state = useLocation().state;
+  
+  // 发送请求 请求软件版本信息
+  const [versionInf, setVersionInf] = React.useState([]);
+    React.useEffect(() => {
+      axios({
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'GET',
+        url: `http://106.13.18.48/versions/latest_${state.id}`,
+      }).then(
+        response => {
+          console.log(response.data.data.versionInf);
+            setVersionInf(response.data.data.versionInf);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    }, [])
+
+  // 发送请求获取版本信息
+  const [dataSource, setDataSource]=React.useState([]);
+    React.useEffect(()=>{
+      axios({
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'GET',
+        url: `http://106.13.18.48/versions/software_${state.software_id}`,
+      }).then(
+        response => {
+          console.log(response.data.data);
+          setDataSource(response.data.data);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    },[]);
+
+    // 将返回数据进行整理 以便存入列表中
+  for(const v of dataSource){
+      const key=v.version_id;
+      const versionInf=v.versionInf;
+      const msg=moment(v.release_date).format('YYYY-MM-DD');
+      const desc=v.desc;
+      v.key=key;
+      v.versionInf=versionInf;
+      v.msg=msg;
+      v.desc=desc;
+    }
+
+
+    // 处理删除请求
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
   };
 
+  // 列表配置
   const defaultColumns = [
     {
       title: '版本号',
@@ -56,7 +104,7 @@ const MVersionImf = () => {
       align: 'center',
     },
     {
-      title: '版本信息',
+      title: '发行时间',
       dataIndex: 'msg',
       width: 600,
       textWrap: 'word-break',
@@ -93,6 +141,7 @@ const MVersionImf = () => {
     },
   ];
 
+  // 处理保存请求
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -106,11 +155,13 @@ const MVersionImf = () => {
       row: EditableRow,
     },
   };
+
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
     }
 
+    // 在这里返回列表
     return {
       ...col,
       onCell: (record) => ({

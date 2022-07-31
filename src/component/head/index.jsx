@@ -13,14 +13,14 @@ const { Header } = Layout;
 export default function Head() {
 
     const [state1, setState] = React.useState({ id: -1 });
-    console.log(state1, 'state1');
+    // console.log(state1, 'state1');
 
     //消去登录注册
     if (document.cookie && state1.id === -1) {
         const permission = Number.parseInt(document.cookie.split(';')[1].split('=')[1]);
-        console.log(permission, '消去登录注册permission');
+        // console.log(permission, '消去登录注册permission');
         setState({ id: permission })
-        console.log(state1, '!!!!');
+        // console.log(state1, '!!!!');
     }
     const navigate = useNavigate();
     const backHome = () => {

@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Image } from 'antd';
 import './index.css'
 import { useLocation } from 'react-router-dom';
 import axios from 'axios'
+
 const layout = {
   labelCol: {
     span: 8,
@@ -23,9 +24,12 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
+
 export default function SoftwareM() {
+
   const state = useLocation().state;
   const { software_id } = state;
+  
   const onFinish = (values) => {
     const { software_name, desc, group_id } = values;
     axios({

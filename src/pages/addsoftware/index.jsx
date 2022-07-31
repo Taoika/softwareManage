@@ -25,17 +25,8 @@ const validateMessages = {
         range: '${label} must be between ${min} and ${max}',
     },
 };
-//上传安装包
-const normFile = (e) => {
-    console.log('Upload event:', e);
 
-    if (Array.isArray(e)) {
-        return e;
-    }
-
-    return e?.fileList;
-};
-//上传图片
+//上传图片?
 const getBase64 = (img, callback) => {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
@@ -57,10 +48,93 @@ const beforeUpload = (file) => {
 
     return isJpgOrPng && isLt2M;
 };
+
 export default function Addsoftware() {
-    //上海图片
+    // 保存图片文件 安装包文件 用于发送请求的formData数据
+    const formDataImg=new FormData();
+    const formDataFile=new FormData();
+
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
+
+    //上传图片
+const normImg = (e) => {
+    console.log('Upload event:', e);
+    // console.log(e.file);
+    let msg = {'file1':e,'type':'software',"id":1}
+    for (const key in msg) {
+        formDataImg.append(key,msg[key])
+    }
+
+    // axios({
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': document.cookie.split(';')[0].split('=')[1]
+    //     },
+    //     method: 'POST',
+    //     url: 'http://39.98.41.126:31104/files/uploadImg',
+    //     data:formData,
+    //   }).then(
+    //     response => {
+    //     //   if (response.data.code === 70401) {
+    //     //     setSoftwares(response.data.data)
+    //     //   }
+    //     //   else {
+    //     //     alert(response.data.msg)
+    //     //     navigate('/dlzc');
+    //     //   }
+    //     console.log(response.data);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
+
+//上传安装包
+const normFile = (e) => {
+    // console.log('Upload event:', e);
+    // console.log(e.file);
+    let msg = {'file1':e.filelist[0].file.originFileObj}
+    for (const key in msg) {
+        formDataFile.append(key,msg[key])
+    }
+
+    // axios({
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': document.cookie.split(';')[0].split('=')[1]
+    //     },
+    //     method: 'POST',
+    //     url: 'http://39.98.41.126:31104/files/uploadFile',
+    //     data:formData,
+    //   }).then(
+    //     response => {
+    //     //   if (response.data.code === 70401) {
+    //     //     setSoftwares(response.data.data)
+    //     //   }
+    //     //   else {
+    //     //     alert(response.data.msg)
+    //     //     navigate('/dlzc');
+    //     //   }
+    //     console.log(response.data);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+
+    if (Array.isArray(e)) {
+        return e;
+    }
+    return e?.fileList;
+};
+
     const handleChange = (info) => {
         if (info.file.status === 'uploading') {
             setLoading(true);
@@ -88,16 +162,21 @@ export default function Addsoftware() {
             </div>
         </div>
     );
+    const beforeUpload = ({fileList}) => {
+        return  false;
+    }
 
-    //上传图片
+    // 发布软件
     const onFinish = (values) => {
         const { software_name, desc, group_id, versionInf, version_desc } = values
+        // 发送请求上传软件数据
         axios({
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'POST',
-            url: 'http://106.13.18.48/softwares',
+            url: 'http://39.98.41.126:31104/softwares',
             data: JSON.stringify({
                 software: {
                     software_name,
@@ -108,27 +187,49 @@ export default function Addsoftware() {
                     versionInf,
                     desc: version_desc
                 }
-
             })
         }).then(
-
             response => {
                 if (response.data.code === 70101) {
-                    alert('发布成功！');
+                    // console.log(response.data);
+                    // 发送请求上传安装包数据
+                    formDataFile.append("software_id",response.data.data.software_id);
+                    formDataFile.append("version_id",response.data.data.version_id);
+                    axios({
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Authorization': document.cookie.split(';')[0].split('=')[1]
+                        },
+                        method: 'POST',
+                        url: 'http://39.98.41.126:31104/files/uploadFile',
+                        data:formDataFile,
+                      }).then(
+                        response => {
+                        //   if (response.data.code === 70401) {
+                        //     setSoftwares(response.data.data)
+                        //   }
+                        //   else {
+                        //     alert(response.data.msg)
+                        //     navigate('/dlzc');
+                        //   }
+                        console.log(response.data);
+                        },
+                        error => {
+                          console.log(error);
+                        }
+                      )
                 }
                 else {
                     alert(response.data.msg);
                 }
-                console.log(response);
             },
             error => {
                 alert('异常错误！');
             }
-
-
         )
-        // console.log('Received values of form: ', values);
+        console.dir('Received values of form: ', values);
     };
+    
     return (
         <div>
             <div className='Addsoftware-title'>发布软件</div>
@@ -186,7 +287,8 @@ export default function Addsoftware() {
                         <Input style={{ width: '300px' }} />
                     </Form.Item>
                     {/* 简介 */}
-                    <Form.Item className='Addsoftware-desc' name='desc' label="简介"
+                    <Form.Item 
+                        className='Addsoftware-desc' name='desc' label="简介"
                         rules={[
                             {
                                 required: true,
@@ -200,7 +302,8 @@ export default function Addsoftware() {
                         <Input.TextArea style={{ width: '857px', height: '150px' }} />
                     </Form.Item>
                     {/* 软件类别 */}
-                    <Form.Item className='Addsoftware-type' label="软件种类" name='group_id'
+                    <Form.Item 
+                        className='Addsoftware-type' label="软件种类" name='group_id'
                         rules={[
                             {
                                 required: true,
@@ -215,7 +318,8 @@ export default function Addsoftware() {
                         </Select>
                     </Form.Item>
                     {/* 版本描述 */}
-                    <Form.Item className='Addsoftware-verdesc' name='version_desc' label="版本描述"
+                    <Form.Item
+                        className='Addsoftware-verdesc' name='version_desc' label="版本描述"
                         rules={[
                             {
                                 required: true,
@@ -229,11 +333,18 @@ export default function Addsoftware() {
                         <Input.TextArea style={{ width: '1400px', height: '150px' }} />
                     </Form.Item>
                     {/* 提交 */}
-                    <Form.Item className='Addsoftware-submit' wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Form.Item
+                        className='Addsoftware-submit' 
+                        wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                         <Button style={{ width: '150px' }} type="primary" htmlType="submit">
                             Submit
                         </Button>
                     </Form.Item>
+                    {/* <Upload {...this.getPdfURL()} showUploadList={false}>
+                       <Button>
+                         <Icon type="upload" /> 上传文件
+                       </Button>
+                    </Upload> */}
                     {/* 安装包 */}
                     <Form.Item
                         rules={[
@@ -261,7 +372,7 @@ export default function Addsoftware() {
                         name="pic"
                         label=""
                         valuePropName="fileList"
-                        getValueFromEvent={normFile}                    >
+                        getValueFromEvent={normImg}                    >
                         <Upload
                             name="avatar"
                             listType="picture-card"
@@ -293,3 +404,5 @@ export default function Addsoftware() {
         </div>
     )
 }
+
+
