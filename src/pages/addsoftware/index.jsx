@@ -340,11 +340,11 @@ const normFile = (e) => {
                             Submit
                         </Button>
                     </Form.Item>
-                    <Upload {...this.getPdfURL()} showUploadList={false}>
+                    {/* <Upload {...this.getPdfURL()} showUploadList={false}>
                        <Button>
                          <Icon type="upload" /> 上传文件
                        </Button>
-                    </Upload>
+                    </Upload> */}
                     {/* 安装包 */}
                     <Form.Item
                         rules={[
