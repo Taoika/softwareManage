@@ -33,7 +33,7 @@ export default function Register() {
         'Content-Type': 'application/json'
       },
       method: 'POST',
-      url: 'http://106.13.18.48/users/register',
+      url: 'http://39.98.41.126:31104/users/register',
       data: JSON.stringify({ username, password, email, phone_number })
     }).then(
       response => {

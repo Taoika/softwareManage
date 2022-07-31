@@ -22,7 +22,7 @@ export default function All() {
         'Content-Type': 'application/json'
       },
       method: 'GET',
-      url: 'http://106.13.18.48/softwares',
+      url: 'http://39.98.41.126:31104/softwares',
     }).then(
       response => {
         setSoftwares(response.data.data)

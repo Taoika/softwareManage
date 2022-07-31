@@ -20,7 +20,7 @@ export default function Personalinf() {
                 'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'PUT',
-            url: `http://106.13.18.48/users`,
+            url: `http://39.98.41.126:31104/users`,
             data: JSON.stringify({
                 user_id: id,
                 username: values.username,
@@ -49,7 +49,7 @@ export default function Personalinf() {
                 'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'GET',
-            url: `http://106.13.18.48/users/${id}`,
+            url: `http://39.98.41.126:31104/users/${id}`,
         }).then(
             response => {
                 // setSoftwares(response.data.data)

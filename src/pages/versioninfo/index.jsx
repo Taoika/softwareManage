@@ -6,82 +6,6 @@ import './index.css'
 
 export default function VersionInfo() {
 
-    // 在这里向后台发送请求获取某个软件的版本数据 并放入data中 data是一个存放着对象的数据
-    let data = [
-      {
-        version_id: '1',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '2',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '3',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '4',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '5',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '6',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '7',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '12',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '8',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '9',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '10',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      },
-      {
-        version_id: '11',
-        versionInf: '1234567',
-        desc: 'great',
-        url: <a href='https://www.baidu.com/'>https://www.baidu.com/</a>,
-      }
-    ];
-
     const state = useLocation().state;
     // console.log(state);
 
@@ -89,10 +13,11 @@ export default function VersionInfo() {
     React.useEffect(()=>{
       axios({
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': document.cookie.split(';')[0].split('=')[1]
         },
         method: 'GET',
-        url: `http://106.13.18.48/versions/software_${state.id}`,
+        url: `http://39.98.41.126:31104/versions/software_${state.id}`,
       }).then(
         response => {
           // console.log(response.data.data);

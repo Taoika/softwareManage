@@ -43,7 +43,7 @@ const MVersionImf = () => {
           'Content-Type': 'application/json'
         },
         method: 'GET',
-        url: `http://106.13.18.48/versions/latest_${state.id}`,
+        url: `http://39.98.41.126:31104/versions/latest_${state.id}`,
       }).then(
         response => {
           console.log(response.data.data.versionInf);
@@ -63,7 +63,7 @@ const MVersionImf = () => {
           'Content-Type': 'application/json'
         },
         method: 'GET',
-        url: `http://106.13.18.48/versions/software_${state.software_id}`,
+        url: `http://39.98.41.126:31104/versions/software_${state.software_id}`,
       }).then(
         response => {
           console.log(response.data.data);

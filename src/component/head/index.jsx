@@ -33,7 +33,7 @@ export default function Head() {
     //           'Content-Type': 'application/json'
     //         },
     //         method: 'POST',
-    //         url: 'http://106.13.18.48/users/register',
+    //         url: 'http://39.98.41.126:31104/users/register',
     //       }).then(
     //         response => {
     //           const { data } = response;

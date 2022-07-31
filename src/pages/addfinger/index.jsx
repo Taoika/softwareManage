@@ -23,7 +23,7 @@ export default function Addfinger() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'POST',
-      url: `http://106.13.18.48/hardInfos`,
+      url: `http://39.98.41.126:31104/hardInfos`,
       data: JSON.stringify({
         user_id, owner_name, mac, cpu, hard
       })

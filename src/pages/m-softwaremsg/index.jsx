@@ -37,7 +37,7 @@ export default function SoftwareM() {
         'Content-Type': 'application/json'
       },
       method: 'PUT',
-      url: 'http://106.13.18.48/softwares',
+      url: 'http://39.98.41.126:31104/softwares',
       data: JSON.stringify({ software_id, software_name, desc, group_id })
     }).then(
       response => {

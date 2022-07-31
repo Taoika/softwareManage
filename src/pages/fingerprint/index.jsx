@@ -31,7 +31,7 @@ export default function Fingerprint() {
                 'Authorization': document.cookie.split(';')[0].split('=')[1]
             },
             method: 'GET',
-            url: `http://106.13.18.48/hardInfos?user_id=${id}`,
+            url: `http://39.98.41.126:31104/hardInfos?user_id=${id}`,
         }).then(
             response => {
                 if (response.data.code === 92201 && response.data.data) {

@@ -32,7 +32,7 @@ export default function All() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
-      url: `http://106.13.18.48/softwares/search?name=${state.softwarename}&isVague=true`,
+      url: `http://39.98.41.126:31104/softwares/search?name=${state.softwarename}&isVague=true`,
     }).then(
       response => {
         setSoftwares(response.data.data)

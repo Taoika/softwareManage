@@ -22,7 +22,7 @@ export default function Repairpsw() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'POST',
-      url: 'http://106.13.18.48/users/updatePwd',
+      url: 'http://39.98.41.126:31104/users/updatePwd',
       data: JSON.stringify({
         user_id: id,
         oldPwd: values.initpassword,

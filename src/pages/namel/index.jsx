@@ -14,7 +14,7 @@ const Namel = () => {
                 'Content-Type': 'application/json'
             },
             method: 'POST',
-            url: 'http://106.13.18.48/users',
+            url: 'http://39.98.41.126:31104/users',
             data: JSON.stringify({
                 username: values.username,
                 password: values.password

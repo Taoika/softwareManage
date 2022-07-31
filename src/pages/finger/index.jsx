@@ -26,7 +26,7 @@ export default function Finger() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'PUT',
-      url: 'http://106.13.18.48/hardInfos',
+      url: 'http://39.98.41.126:31104/hardInfos',
       data: JSON.stringify({
         info_id, user_id, owner_name, mac, cpu, hard
       })

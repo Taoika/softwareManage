@@ -23,7 +23,7 @@ export default function All() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
-      url: 'http://106.13.18.48/softwares/group_1',
+      url: 'http://39.98.41.126:31104/softwares/group_1',
     }).then(
       response => {
         setSoftwares(response.data.data)

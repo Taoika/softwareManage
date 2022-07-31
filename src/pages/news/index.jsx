@@ -37,7 +37,7 @@ export default function News() {
           'Authorization': document.cookie.split(';')[0].split('=')[1]
         },
         method: 'GET',
-        url: 'http://106.13.18.48/notices',
+        url: 'http://39.98.41.126:31104/notices',
 
       }).then(
         response => {
