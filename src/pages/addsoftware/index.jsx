@@ -200,7 +200,8 @@ export default function Addsoftware() {
             response => {
                 console.log(response.data);
 
-                if (response.data.code === 70101) {
+                if (response.data.code === 70101 && response.data.data) {
+                    alert('软件上传成功，正在上传安装包...！')
                     // 发送请求上传安装包数据
                     formDataFile.append("software_id", response.data.data.software_id);
                     formDataFile.append("version_id", response.data.data.version_id);
@@ -217,7 +218,7 @@ export default function Addsoftware() {
                         response => {
                             if (response.data.code === 90101) {
                                 // setSoftwares(response.data.data)
-                                console.log();
+                                alert('上传安装包成功！')
                             }
                             else {
                                 alert(response.data.msg)
