@@ -19,8 +19,8 @@ const Repairsoftware = () => {
     const location = useLocation();
     const items = [
         getItem(<Link to='softwaremsg-m' state={msg}>软件简介</Link>, 'sub1', <FileSearchOutlined />),
-        getItem(<Link to='versionimf-m' state={{}}>版本信息</Link>, 'sub2', <QrcodeOutlined />),
-        getItem(<Link to='authorization-m' state={{}}>授权方案</Link>, 'sub4', <KeyOutlined />)
+        getItem(<Link to='versionimf-m' state={msg}>版本信息</Link>, 'sub2', <QrcodeOutlined />),
+        getItem(<Link to='authorization-m' state={msg}>授权方案</Link>, 'sub4', <KeyOutlined />)
     ];
     React.useEffect(() => {
         const software_id = location.state.element && location.state.element.software_id;

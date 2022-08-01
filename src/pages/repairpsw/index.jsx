@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 export default function Repairpsw() {
   const navigate = useNavigate();
-  const id = document.cookie.split(';')[2].split('=')[1]
+  const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
 
   const back = () => {
     navigate(-1);
@@ -22,7 +22,7 @@ export default function Repairpsw() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'POST',
-      url: 'http://106.13.18.48/users/updatePwd',
+      url: 'http://39.98.41.126:31104/users/updatePwd',
       data: JSON.stringify({
         user_id: id,
         oldPwd: values.initpassword,
@@ -30,7 +30,12 @@ export default function Repairpsw() {
       })
     }).then(
       response => {
-        alert('修改成功！');
+        if (response.data.code === 60211) {
+          alert('修改成功！');
+        }
+        else {
+          alert(response.data.msg)
+        }
         console.log(response, '修改密码');
         back();
 

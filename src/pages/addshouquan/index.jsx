@@ -5,25 +5,71 @@ import {
 } from 'antd';
 import React from 'react';
 import './index.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 const { Option } = Select;
 
 export default function Addshouquan() {
+  const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
+  const [zhiwen, setZhiwen] = React.useState([])
+  const location = useLocation().state
+  console.log(location, '看看穿了啥到addshouquan');
   const navigate = useNavigate();
   const back = () => {
     navigate(-1);
   }
+  //请求获取硬件信息
+  React.useEffect(() => {
+    if (location) {
+      axios({
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': document.cookie.split(';')[0].split('=')[1]
+        },
+        method: 'GET',
+        url: `http://39.98.41.126:31104/hardInfos?user_id=${id}`,
+      }).then(
+        res => {
+          if (res.data.code === 92201 && res.data.data) {
+            setZhiwen(res.data.data)
+            navigate(-1)
+          }
+          else {
+            alert(res.data.msg)
+          }
+          console.log(res, '获取指纹id啊');
+        }
+      )
+    }
+
+
+  }, [])
+  //增加授权 需要用户id（id），指纹id 许可证id{location.id}
+
   const onFinish = (values) => {
-    const { username, password, email, phone_number } = values;
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://39.98.41.126:31104/users/register',
-    //   data: JSON.stringify({ username, password, email, phone_number })
-    // }).then(
-    //   response => { alert('注册成功！'); console.log(response); back(); },
-    // )
-    console.log('Received values of form: ', values);
+
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
+      },
+      method: 'POST',
+      url: `http://39.98.41.126:31104/codes`,
+      data: JSON.stringify({
+        license_id: location.id,
+        user_id: id,
+        info_id: values.number
+      })
+    }).then(res => {
+      if (res.data.code === 94101) {
+        alert(res.data.msg)
+      }
+      else {
+        alert(res.data.msg)
+      }
+      console.log(res, '看看能不能修改成功')
+    })
+    console.log('Received values of form: ', values, '看看提交了啥');
   };
   return (
     <div className='Addshouquan-mask'>
@@ -51,9 +97,11 @@ export default function Addshouquan() {
                 placeholder="选择您的指纹"
                 allowClear
               >
-                <Option value="1">指纹1</Option>
-                <Option value="2">指纹2</Option>
-                <Option value="3">指纹3</Option>
+                {
+                  zhiwen.map((x, i) => {
+                    return (<Option value={x.info_id}>指纹{i + 1}</Option>)
+                  })
+                }
               </Select>
             </Form.Item>
             <Form.Item >

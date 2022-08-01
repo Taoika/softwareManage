@@ -56,7 +56,7 @@ export default function Head() {
 
     //数据
     const items1 = [
-        state1.id === -1 ? '' : {
+        state1.id === -1 || 1 ? '' : {
             key: 1, label: <Link className='head-news' to='/news'>消息</Link>,
             children: [
                 {
@@ -96,7 +96,7 @@ export default function Head() {
                 },
             ],
         },
-        state1.id === -1 ? '' : { key: 2, label: <Link to='/home'>产品</Link> },
+        state1.id === -1 || 1 ? '' : { key: 2, label: <Link to='/home'>产品</Link> },
         state1.id === -1 ? { key: 5, label: <Link to='dlzc'><UserOutlined style={{ fontSize: '20px' }} /></Link> } :
             state1.id === 0 ? { key: 4, label: <Link to='personalcen'>个人中心</Link> } : { key: 3, label: <Link to='management'>管理端</Link> }
     ]

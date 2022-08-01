@@ -21,7 +21,7 @@ export default function Myauthorization() {
 
     const navigate = useNavigate();
     const [xuke, setXuke] = React.useState([]);
-    const id = document.cookie.split(';')[2].split('=')[1]
+    const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
     React.useEffect(() => {
         axios({
             headers: {
@@ -51,7 +51,7 @@ export default function Myauthorization() {
                                         key: i,
                                         description:
                                             <div className='Myauthorization-limit'>{
-                                                res.data.data.map((x, i) => { return (<div>{x.code}</div>) })
+                                                res.data.data.map((x, i) => { return (<div>授权码{i + 1}：{x.code}</div>) })
                                             }
                                             </div>
                                     })
@@ -74,9 +74,11 @@ export default function Myauthorization() {
                     }).then(
                         response => {
                             if (response.data.code === 70401 && response.data.data) {
-                                setTimeout(300)
                                 response.data.data.map((x, i) => {
-                                    myxuke[i].name = <div>{x.software_name}<div onClick={() => Add(xukeArr[i], x.software_name)} className='Myauthorization-addshoquuan'>添加授权</div></div>;
+                                    if (myxuke[i]) {
+                                        myxuke[i].name = <div>{x.software_name}<div onClick={() => Add(xukeArr[i], x.software_name)} className='Myauthorization-addshoquuan'>添加授权</div></div>;
+
+                                    }
                                 })
                                 setXuke(myxuke)
                                 console.log(myxuke, 'myxuke');

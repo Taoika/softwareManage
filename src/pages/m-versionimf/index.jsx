@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import img1 from './images/删除.png'
 import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 const EditableContext = React.createContext(null);
 
 
@@ -21,30 +22,71 @@ const EditableRow = ({ index, ...props }) => {
 
 const MVersionImf = () => {
   const navigate = useNavigate();
+  //获取版本信息
+  const [msg, setMsg] = React.useState({})
+  const state = useLocation().state;
+  const { software_id } = state;
+  React.useEffect(() => {
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
+      },
+      method: 'GET',
+      url: `http://106.13.18.48/versions/software_${software_id}`,
+    }).then(
+      response => {
+        if (response.data.code === 80401 && response.data.data) {
+          setMsg(response.data.data)
+        }
+        else {
+          alert(response.data.msg)
+        }
+        console.log(response, '看看传了什么');
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }, [])
+
+
+
+
+
   const pushnewversion = () => {
     navigate('/repairsoftware/pushnewversion')
   }
   const repairversion = () => {
     navigate('/repairsoftware/repairversion')
   }
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      versionInf: '111111',
-      msg: '阿库娅阿库娅阿库娅阿库娅阿库娅',
-      desc: '1111111sgrnsetntffffffffsss1111111sgrnsetntffffffffs及地方很',
-    },
-    {
-      key: '1',
-      versionInf: '22222',
-      msg: '哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷',
-      desc: '1111111sgrnsetntOEhhiperf',
-    },
-  ]);
+  const dataSource = ([msg.map((x, i) => {
+    return ({
+      key: x.software_id,
+      versionInf: x.version_id,
+      msg: x.url,
+      desc: x.desc,
+    })
+  })])
+
+  // ([
+  //   {
+  //     key: {msg.software_id},
+  //     versionInf: {msg.software_id},
+  //     msg: '阿库娅阿库娅阿库娅阿库娅阿库娅',
+  //     desc: '1111111sgrnsetntffffffffsss1111111sgrnsetntffffffffs及地方很',
+  //   },
+  //   {
+  //     key: '1',
+  //     versionInf: '22222',
+  //     msg: '哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷哇酷',
+  //     desc: '1111111sgrnsetntOEhhiperf',
+  //   },
+  // ]);
 
   const handleDelete = (key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+    // const newData = dataSource.filter((item) => item.key !== key);
+    // setDataSource(newData);
   };
 
   const defaultColumns = [
@@ -94,11 +136,11 @@ const MVersionImf = () => {
   ];
 
   const handleSave = (row) => {
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, { ...item, ...row });
-    setDataSource(newData);
+    // const newData = [...dataSource];
+    // const index = newData.findIndex((item) => row.key === item.key);
+    // const item = newData[index];
+    // newData.splice(index, 1, { ...item, ...row });
+    // setDataSource(newData);
   };
 
   const components = {

@@ -24,7 +24,7 @@ export default function All() {
         'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'GET',
-      url: `http://39.98.41.126:31104/licenses?user_id=${id}`,
+      url: `http://39.98.41.126:31104/licenses?user_id=${13}`,
     }).then(
       response => {
 

@@ -30,7 +30,8 @@ export default function SoftwareM() {
     const { software_name, desc, group_id } = values;
     axios({
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': document.cookie.split(';')[0].split('=')[1]
       },
       method: 'PUT',
       url: 'http://106.13.18.48/softwares',
