@@ -4,7 +4,20 @@ import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 const EditableContext = React.createContext(null);
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 
 
 const EditableRow = ({ index, ...props }) => {
@@ -28,6 +41,8 @@ const MVersionImf = () => {
   const repairversion = () => {
     navigate('repairfangan')
   }
+
+
   const [dataSource, setDataSource] = useState([
     {
       key: '0',

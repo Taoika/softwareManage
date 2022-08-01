@@ -5,6 +5,21 @@ import axios from 'axios';
 import {
     RightOutlined
 } from '@ant-design/icons';
+
+//读Cookie
+function getCookie(cookieName) {
+    const strCookie = document.cookie
+    const cookieList = strCookie.split(';')
+
+    for (let i = 0; i < cookieList.length; i++) {
+        const arr = cookieList[i].split('=')
+        if (cookieName === arr[0].trim()) {
+            return arr[1]
+        }
+    }
+
+    return ''
+}
 export default function Fingerprint() {
     const [msg, setMsg] = React.useState([]);
     const navigate = useNavigate();
@@ -23,12 +38,12 @@ export default function Fingerprint() {
         })
     }
     //发请求
-    const id = document.cookie.split(';')[2].split('=')[1]
+    const id = Number.parseInt(getCookie('user'))
     React.useEffect(() => {
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': document.cookie.split(';')[0].split('=')[1]
+                'Authorization': getCookie('header')
             },
             method: 'GET',
             url: `http://106.13.18.48/hardInfos?user_id=${id}`,

@@ -7,6 +7,20 @@ import React from 'react';
 import './index.css'
 import { useNavigate, } from 'react-router-dom';
 import axios from 'axios';
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
+
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 export default function Addfinger() {
 
   const navigate = useNavigate();
@@ -15,12 +29,12 @@ export default function Addfinger() {
   }
   const onFinish = (values) => {
     console.log(values, 'values');
-    const user_id = document.cookie.split(';')[2].split('=')[1]
+    const user_id = Number.parseInt(getCookie('user'))
     const { owner_name, mac, cpu, hard } = values
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'POST',
       url: `http://106.13.18.48/hardInfos`,

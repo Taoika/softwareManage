@@ -7,9 +7,25 @@ import React from 'react';
 import './index.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
+
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 export default function Repairpsw() {
   const navigate = useNavigate();
-  const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
+  const id = Number.parseInt(getCookie('user'))
 
   const back = () => {
     navigate(-1);
@@ -19,10 +35,10 @@ export default function Repairpsw() {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'POST',
-      url: 'http://39.98.41.126:31104/users/updatePwd',
+      url: 'http://106.13.18.48/users/updatePwd',
       data: JSON.stringify({
         user_id: id,
         oldPwd: values.initpassword,

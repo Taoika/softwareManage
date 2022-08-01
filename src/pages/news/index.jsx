@@ -1,40 +1,86 @@
 import React from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import './index.css'
 import { List } from 'antd';
-const data = [
-    {
-        title: <div className='News-name'>idea发布了1.0.0.1</div>,
-    },
-    {
-        title: <div className='News-name'>idea发布了1.0.0.1</div>,
+import axios from 'axios'
+import moment from 'moment'
 
-    },
-    {
-        title: <div className='News-name'>idea发布了1.0.0.1</div>,
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
-    },
-    {
-        title: <div className='News-name'>idea发布了1.0.0.1</div>,
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
 
-    },
-];
+  return ''
+}
+
 export default function News() {
-    return (
-        <div><strong className='News-title'>消息列表</strong>
-            <List
-                className='News'
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={(item) => (
-                    <List.Item className='News-item'>
-                        <List.Item.Meta
-                            avatar={<img alt='' style={{ width: '100px', height: '100px' }} src="https://img1.baidu.com/it/u=1279714539,3632980328&fm=253&fmt=auto&app=138&f=JPEG?w=509&h=500" />}
-                            title={<a href="javascript:;">{item.title}</a>}
-                            description={<div>发布了最新版本<div className='News-time'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:31:31 2022-07-23</div></div>}
-                        />
-                    </List.Item>
-                )}
-            />
-        </div>
+
+  const navigate = useNavigate()
+
+  // 设置状态保存数据 向后台获取数据
+  const [data, setData] = React.useState([]);
+  React.useEffect(() => {
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie("header")
+      },
+      method: 'GET',
+      url: 'http://106.13.18.48/notices',
+
+    }).then(
+      response => {
+        if (response.data.code === 93401) {
+          setData(response.data.data)
+        }
+        else {
+          alert(response.data.msg)
+          navigate('/dlzc');
+        }
+      },
+      error => {
+        console.log(error);
+      }
     )
+  }, [])
+
+  // 将数据保存在element参数中 作为状态传送给softwaredetail
+  function showDetail(element) {
+    console.log(element);
+    navigate('/softwaredetail', {
+      state: {
+        element
+      }
+    })
+  }
+
+  return (
+    <div><strong className='News-title'>消息列表</strong>
+      <List
+        className='News'
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item className='News-item'>
+            <List.Item.Meta
+              avatar={<img alt='' style={{ width: '100px', height: '100px' }} src="https://img1.baidu.com/it/u=1279714539,3632980328&fm=253&fmt=auto&app=138&f=JPEG?w=509&h=500" />}
+              description={
+                <div onClick={() => showDetail(item)}>
+                  <div>{item.content}</div>
+                  <div className='News-time'>{moment(item.time).format('YYYY-MM-DD HH:mm:ss')}</div>
+                </div>
+              }
+            />
+          </List.Item>
+        )}
+      />
+    </div>
+  )
 }

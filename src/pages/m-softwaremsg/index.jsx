@@ -3,6 +3,21 @@ import { Button, Form, Input, Select, Image } from 'antd';
 import './index.css'
 import { useLocation } from 'react-router-dom';
 import axios from 'axios'
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
+
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
+
 const layout = {
   labelCol: {
     span: 8,
@@ -23,15 +38,18 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
+
 export default function SoftwareM() {
+
   const state = useLocation().state;
   const { software_id } = state;
+
   const onFinish = (values) => {
     const { software_name, desc, group_id } = values;
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'PUT',
       url: 'http://106.13.18.48/softwares',

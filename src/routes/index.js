@@ -89,6 +89,10 @@ const routes = [
                 path: 'licensing',
                 element:<Licensing/>
             },
+            // {
+            //     path: '',
+            //     element:<Navigate to='softwaremsg' />
+            // },
          ]
     },
     //个人信息
@@ -272,7 +276,7 @@ const routes = [
     //默认
     {
         path: '/',
-        element: <Navigate to='/home/all' />
+        element: <Navigate to='/home' />
     }
 ]
 

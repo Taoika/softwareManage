@@ -4,7 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import './index.css'
 import axios from 'axios'
 
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 export default function All() {
   const navigate = useNavigate()
   function showDetail(element) {
@@ -16,15 +29,15 @@ export default function All() {
   }
   //发请求
   const [softwares, setSoftwares] = React.useState([]);
-  const id = document.cookie.split(';')[2].split('=')[1]
+
   React.useEffect(() => {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'GET',
-      url: `http://39.98.41.126:31104/licenses?user_id=${13}`,
+      url: `http:///106.13.18.48/licenses?user_id=${Number.parseInt(getCookie('user'))}`,
     }).then(
       response => {
 
@@ -36,10 +49,10 @@ export default function All() {
           axios({
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': document.cookie.split(';')[0].split('=')[1]
+              'Authorization': getCookie('header')
             },
             method: 'POST',
-            url: `http://39.98.41.126:31104/softwares/ids`,
+            url: `http:///106.13.18.48/softwares/ids`,
             data: JSON.stringify({
               ids
             })

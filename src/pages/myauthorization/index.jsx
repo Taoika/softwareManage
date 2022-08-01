@@ -3,6 +3,20 @@ import React from 'react';
 import './index.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+//读Cookie
+function getCookie(cookieName) {
+    const strCookie = document.cookie
+    const cookieList = strCookie.split(';')
+
+    for (let i = 0; i < cookieList.length; i++) {
+        const arr = cookieList[i].split('=')
+        if (cookieName === arr[0].trim()) {
+            return arr[1]
+        }
+    }
+
+    return ''
+}
 const data = [
     {
         key: 1,
@@ -21,15 +35,15 @@ export default function Myauthorization() {
 
     const navigate = useNavigate();
     const [xuke, setXuke] = React.useState([]);
-    const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
+    const id = Number.parseInt(getCookie('user'))
     React.useEffect(() => {
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': document.cookie.split(';')[0].split('=')[1]
+                'Authorization': getCookie('header')
             },
             method: 'GET',
-            url: `http://39.98.41.126:31104/licenses?user_id=${13}`,
+            url: `http://106.13.18.48/licenses?user_id=${id}`,
         }).then(
             response => {
                 if (response.data.code === 91101 && response.data.data) {
@@ -40,10 +54,10 @@ export default function Myauthorization() {
                         axios({
                             headers: {
                                 'Content-Type': 'application/json',
-                                'Authorization': document.cookie.split(';')[0].split('=')[1]
+                                'Authorization': getCookie('header')
                             },
                             method: 'GET',
-                            url: `http://39.98.41.126:31104/codes/${x.license_id}`,
+                            url: `http://106.13.18.48/codes/${x.license_id}`,
                         }).then(
                             res => {
                                 if (res.data.code === 94201) {
@@ -64,10 +78,10 @@ export default function Myauthorization() {
                     axios({
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': document.cookie.split(';')[0].split('=')[1]
+                            'Authorization': getCookie('header')
                         },
                         method: 'POST',
-                        url: `http://39.98.41.126:31104/softwares/ids`,
+                        url: `http://106.13.18.48/softwares/ids`,
                         data: JSON.stringify({
                             ids
                         })

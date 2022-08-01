@@ -2,7 +2,10 @@ import './index.css'
 import { FileSearchOutlined, QrcodeOutlined, KeyOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import React from 'react'; function getItem(label, key, icon, children, type) {
+import React from 'react';
+
+
+function getItem(label, key, icon, children, type) {
     return {
         key,
         icon,

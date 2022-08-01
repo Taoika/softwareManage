@@ -8,9 +8,22 @@ import './index.css'
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 const { Option } = Select;
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 export default function Addshouquan() {
-  const id = Number.parseInt(document.cookie.split(';')[2].split('=')[1])
+  const id = Number.parseInt(getCookie('user'))
   const [zhiwen, setZhiwen] = React.useState([])
   const location = useLocation().state
   console.log(location, '看看穿了啥到addshouquan');
@@ -24,10 +37,10 @@ export default function Addshouquan() {
       axios({
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': document.cookie.split(';')[0].split('=')[1]
+          'Authorization': getCookie('header')
         },
         method: 'GET',
-        url: `http://39.98.41.126:31104/hardInfos?user_id=${id}`,
+        url: `http://106.13.18.48/hardInfos?user_id=${id}`,
       }).then(
         res => {
           if (res.data.code === 92201 && res.data.data) {
@@ -51,10 +64,10 @@ export default function Addshouquan() {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'POST',
-      url: `http://39.98.41.126:31104/codes`,
+      url: `http://106.13.18.48/codes`,
       data: JSON.stringify({
         license_id: location.id,
         user_id: id,

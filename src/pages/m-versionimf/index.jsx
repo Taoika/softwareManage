@@ -4,8 +4,23 @@ import img2 from './images/编辑.png'
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import React, { useState } from 'react';
 import axios from 'axios';
+import './index.css'
 const EditableContext = React.createContext(null);
 
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
+
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 
 
 const EditableRow = ({ index, ...props }) => {
@@ -23,21 +38,36 @@ const EditableRow = ({ index, ...props }) => {
 const MVersionImf = () => {
   const navigate = useNavigate();
   //获取版本信息
-  const [msg, setMsg] = React.useState({})
   const state = useLocation().state;
-  const { software_id } = state;
+  const { software_id } = state
+  console.log(state, 'sstatestatestate');
+  const [dataSource, setDataSource] = React.useState([])
   React.useEffect(() => {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'GET',
-      url: `http://106.13.18.48/versions/software_${software_id}`,
+      url: `http://106.13.18.48/versions/software_${Number.parseInt(software_id)}`,
     }).then(
       response => {
         if (response.data.code === 80401 && response.data.data) {
-          setMsg(response.data.data)
+          setDataSource(response.data.data.map((x, i) => {
+            return ({
+              key: x.software_id,
+              versionInf: x.versionInf,
+              msg: x.url,
+              desc: <div>{x.desc}
+                <div className='Mversionimf'>
+                  <a onClick={() => repairversion(x.version_id)}><img src={img2} alt="edit" width='20px' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <Popconfirm title="确认删除吗？" onConfirm={() => handleDelete(x.version_id)}>
+                    <a><img src={img1} alt="delete" width='20px' /></a>
+                  </Popconfirm>
+                </div>
+              </div>,
+            })
+          }))
         }
         else {
           alert(response.data.msg)
@@ -52,22 +82,21 @@ const MVersionImf = () => {
 
 
 
-
-
   const pushnewversion = () => {
-    navigate('/repairsoftware/pushnewversion')
-  }
-  const repairversion = () => {
-    navigate('/repairsoftware/repairversion')
-  }
-  const dataSource = ([msg.map((x, i) => {
-    return ({
-      key: x.software_id,
-      versionInf: x.version_id,
-      msg: x.url,
-      desc: x.desc,
+    navigate('/repairsoftware/pushnewversion', {
+      state: {
+        software_id: Number.parseInt(software_id)
+      }
     })
-  })])
+  }
+  const repairversion = (e) => {
+    navigate('/repairsoftware/repairversion', {
+      state: {
+        version_id: e
+      }
+    })
+  }
+
 
   // ([
   //   {
@@ -84,9 +113,26 @@ const MVersionImf = () => {
   //   },
   // ]);
 
-  const handleDelete = (key) => {
-    // const newData = dataSource.filter((item) => item.key !== key);
-    // setDataSource(newData);
+  const handleDelete = (id) => {
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('header')
+      },
+      method: 'DELETE',
+      url: `http://106.13.18.48/versions/${id}`,
+    }).then(
+      res => {
+        if (res.data.code === 80301) {
+          console.log(res);
+          alert('删除成功！')
+        }
+        else {
+          alert(res.data.msg)
+        }
+        console.log(res);
+      }
+    )
   };
 
   const defaultColumns = [
@@ -98,7 +144,7 @@ const MVersionImf = () => {
       align: 'center',
     },
     {
-      title: '版本信息',
+      title: '下载地址',
       dataIndex: 'msg',
       width: 600,
       textWrap: 'word-break',
@@ -122,16 +168,10 @@ const MVersionImf = () => {
       dataIndex: 'add',
       width: 250,
       align: 'center',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <div>
-            {/* 编辑 */}
-            <a onClick={() => repairversion()}><img src={img2} alt="edit" width='20px' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Popconfirm title="确认删除吗？" onConfirm={() => handleDelete(record.key)}>
-              <a><img src={img1} alt="delete" width='20px' /></a>
-            </Popconfirm>
-          </div>
-        ) : null,
+      // render: (_, record) =>
+      //   dataSource.length >= 1 ? (
+
+      //   ) : null,
     },
   ];
 

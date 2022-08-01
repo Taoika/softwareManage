@@ -7,7 +7,20 @@ import React from 'react';
 import './index.css'
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 export default function Finger() {
   const location = useLocation().state.x
   const navigate = useNavigate();
@@ -23,7 +36,7 @@ export default function Finger() {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'PUT',
       url: 'http://106.13.18.48/hardInfos',

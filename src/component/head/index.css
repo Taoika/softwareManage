@@ -44,7 +44,7 @@ header .logo:hover {
 
 .ant-menu-submenu ul:nth-child(1) {
     background: #FFFFFF !important;
-    margin-left: -150px;
+    margin-left: -200px;
     height: 500px;
 }
 
@@ -59,7 +59,7 @@ header .logo:hover {
     display: block;
     /* background: #FFFFFF; */
     /* 卡片 */
-    width: 400px;
+    width: 500px;
     color: black !important;
 }
 
@@ -70,6 +70,9 @@ header .logo:hover {
 
 
 .head-newslititle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     margin-top: -100px;
     margin-left: 120px;
 
@@ -86,6 +89,8 @@ header .logo:hover {
 }
 
 .head-newsliclick {
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-top: 15px;
     margin-left: 120px;
 

@@ -4,10 +4,25 @@ import './index.css'
 import { useNavigate } from 'react-router-dom'
 import { Avatar } from 'antd';
 import axios from 'axios';
+
+//读Cookie
+function getCookie(cookieName) {
+    const strCookie = document.cookie
+    const cookieList = strCookie.split(';')
+
+    for (let i = 0; i < cookieList.length; i++) {
+        const arr = cookieList[i].split('=')
+        if (cookieName === arr[0].trim()) {
+            return arr[1]
+        }
+    }
+
+    return ''
+}
 export default function Personalinf() {
     const navigate = useNavigate();
     const [msg, setMsg] = React.useState({})
-    const id = document.cookie.split(';')[2].split('=')[1]
+    const id = Number.parseInt(getCookie('user'))
     const repairpsw = () => {
         navigate('/personalcen/repairpsw')
     }
@@ -17,10 +32,10 @@ export default function Personalinf() {
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': document.cookie.split(';')[0].split('=')[1]
+                'Authorization': getCookie('header')
             },
             method: 'PUT',
-            url: `http://39.98.41.126:31104/users`,
+            url: `http://106.13.18.48/users`,
             data: JSON.stringify({
                 user_id: id,
                 username: values.username,
@@ -46,10 +61,10 @@ export default function Personalinf() {
         axios({
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': document.cookie.split(';')[0].split('=')[1]
+                'Authorization': getCookie('header')
             },
             method: 'GET',
-            url: `http://39.98.41.126:31104/users/${id}`,
+            url: `http://106.13.18.48/users/${id}`,
         }).then(
             response => {
                 // setSoftwares(response.data.data)

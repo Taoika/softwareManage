@@ -3,7 +3,19 @@ import img from "../images/CATIA.jpg"
 import { useNavigate, useLocation } from 'react-router-dom'
 import './index.css'
 import axios from 'axios'
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
 
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
 
 export default function All() {
   const state = useLocation().state
@@ -29,7 +41,7 @@ export default function All() {
     axios({
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': document.cookie.split(';')[0].split('=')[1]
+        'Authorization': getCookie('header')
       },
       method: 'GET',
       url: `http://106.13.18.48/softwares/search?name=${state.softwarename}&isVague=true`,

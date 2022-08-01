@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import './index.css'
 import axios from 'axios'
+
 const Namel = () => {
     const navigate = useNavigate();
     const [error, setError] = React.useState(0);
@@ -20,6 +21,7 @@ const Namel = () => {
             })
         }).then(
             response => {
+                console.log(response);
                 const { data } = response;
                 if (data.code === 60001) {
                     alert('登录成功！');

@@ -6,9 +6,25 @@ import {
 } from 'antd';
 import React from 'react';
 import './index.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { UploadOutlined } from '@ant-design/icons';
+
+//读Cookie
+function getCookie(cookieName) {
+  const strCookie = document.cookie
+  const cookieList = strCookie.split(';')
+
+  for (let i = 0; i < cookieList.length; i++) {
+    const arr = cookieList[i].split('=')
+    if (cookieName === arr[0].trim()) {
+      return arr[1]
+    }
+  }
+
+  return ''
+}
+
 const normFile = (e) => {
   console.log('Upload event:', e);
 
@@ -20,17 +36,39 @@ const normFile = (e) => {
 };
 export default function Pushnewversion() {
   const navigate = useNavigate();
+  //获取版本信息
+  const state = useLocation().state;
+  let { software_id } = state
   const back = () => {
     navigate(-1);
   }
   const onFinish = (values) => {
-    const { username, password, email, phone_number } = values;
+    const { versionInf, desc, url } = values;
     axios({
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('header')
+      },
       method: 'POST',
-      url: 'http://39.98.41.126:31104/users/register',
-      data: JSON.stringify({ username, password, email, phone_number })
+      url: 'http://106.13.18.48/versions',
+      data: JSON.stringify({
+        software_id,
+        versionInf,
+        desc,
+        url
+      })
     }).then(
-      response => { alert('注册成功！'); console.log(response); back(); },
+      response => {
+        if (response.data.code === 80101) {
+          alert('发布成功！')
+        }
+        else {
+          alert(response.data.msg)
+        }
+        // alert('注册成功！');
+        console.log(response);
+        back();
+      },
     )
     console.log('Received values of form: ', values);
   };
@@ -46,8 +84,8 @@ export default function Pushnewversion() {
             onFinish={onFinish}>
             {/* 版本号 */}
             <Form.Item
-              className='Repairverson-groupid'
-              name='version_id'
+              className='Pushnewversion-groupid'
+              name='versionInf'
               label="版本编号"
               rules={[
                 {
@@ -61,25 +99,8 @@ export default function Pushnewversion() {
             >
               <Input max={5} style={{ width: '300px' }} />
             </Form.Item>
-            {/* 版本信息 */}
-            <Form.Item
-              className='Repairverson-versionInf'
-              name='versionInf'
-              label="版本信息"
-              rules={[
-                {
-                  required: true,
-                },
-                {
-                  type: 'string',
-                  max: 20
-                },
-              ]}
-            >
-              <Input style={{ width: '300px' }} />
-            </Form.Item>
             {/* 版本描述 */}
-            <Form.Item className='Repairverson-verdesc' name='version_desc' label="版本描述"
+            <Form.Item className='Repairverson-verdesc' name='desc' label="版本描述"
               rules={[
                 {
                   required: true,
@@ -101,7 +122,7 @@ export default function Pushnewversion() {
             {/* 安装包 */}
             <Form.Item
               className='Repairverson-upload'
-              name="upload"
+              name="url"
               label="安装包"
               valuePropName="fileList"
               getValueFromEvent={normFile}                    >
